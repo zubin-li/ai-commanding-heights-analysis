@@ -176,12 +176,12 @@ ai-commanding-heights-analysis/
 若在研究论文、咨询简报、投行研报或自媒体分析中引用本项目数据模型与图表，请遵循以下学术引用标准：
 
 ### APA 7th Edition
-> Li, Z., & Antigravity Research Group. (2026). *The Commanding Heights of AI: Foundation Model Commoditization, Empirical Fact-Check, and Strategic Reallocation of Economic Rent*. AI Commanding Heights Intelligence Project. https://zubin-li.github.io/ai-commanding-heights-analysis/
+> Li, Z., & Antigravity. (2026). *The Commanding Heights of AI: Foundation Model Commoditization, Empirical Fact-Check, and Strategic Reallocation of Economic Rent*. AI Commanding Heights Intelligence Project. https://zubin-li.github.io/ai-commanding-heights-analysis/
 
 ### BibTeX
 ```bibtex
 @misc{li2026commandingheights,
-  author       = {Li, Zubin and {Antigravity Research Group}},
+  author       = {Li, Zubin and Antigravity},
   title        = {{The Commanding Heights of AI: Foundation Model Commoditization, Empirical Fact-Check, and Strategic Reallocation of Economic Rent}},
   year         = {2026},
   howpublished = {\url{https://zubin-li.github.io/ai-commanding-heights-analysis/}},
@@ -191,5 +191,12 @@ ai-commanding-heights-analysis/
 
 ---
 
+## 👥 项目贡献者 (Contributors)
+
+* **Zubin Li** ([@zubin-li](https://github.com/zubin-li)) — 项目发起人、总体数据架构设计与核心研报撰写
+* **Antigravity** ([@antigravity](https://github.com/antigravity)) — 自主 AI Agent 全栈协同架构、前端交互实现与实证质量审计流水线
+
+---
+
 ## ⚖️ 许可与署名 (License)
-本项目代码与图表遵循 **MIT License** 开源。学术与商业研报引用请注明出处：`© 2026 Zubin Li & Antigravity Research Group`。
+本项目代码与图表遵循 **MIT License** 开源。学术与商业研报引用请注明出处：`© 2026 Zubin Li & Antigravity`。

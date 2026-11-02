@@ -11,7 +11,7 @@ metadata = {
     "project": "AI Commanding Heights Analysis & Empirical Fact-Check",
     "version": "2.6.0",
     "last_updated": "2026-11-02",
-    "authors": ["Zubin Li", "Antigravity Research Group"],
+    "authors": ["Zubin Li", "Antigravity"],
     "license": "MIT",
     "original_report": {
         "title": "The Commanding Heights: Foundation Model Commoditization & The Real Reallocation of Economic Rent",

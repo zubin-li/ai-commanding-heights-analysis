@@ -10,7 +10,7 @@ authors:
   - family-names: "Li"
     given-names: "Zubin"
     website: "https://github.com/zubin-li"
-  - name: "Antigravity Research Group"
+  - name: "Antigravity"
     website: "https://github.com/antigravity"
 keywords:
   - "Artificial Intelligence"
@@ -28,6 +28,6 @@ preferred-citation:
   authors:
     - family-names: "Li"
       given-names: "Zubin"
-    - name: "Antigravity Research Group"
+    - name: "Antigravity"
   year: 2026
   url: "https://zubin-li.github.io/ai-commanding-heights-analysis/"

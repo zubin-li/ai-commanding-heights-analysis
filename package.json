@@ -6,7 +6,8 @@
   "scripts": {
     "start": "python3 server.py",
     "serve": "python3 -m http.server 8080",
-    "data:build": "python3 scripts/build_data_assets.py"
+    "data:build": "python3 scripts/build_data_assets.py",
+    "test": "python3 tests/validate_project.py"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,17 @@
     "economic-rent",
     "commoditization"
   ],
-  "author": "Zubin Li & Antigravity Research Group",
+  "author": "Zubin Li (@zubin-li)",
+  "contributors": [
+    {
+      "name": "Zubin Li",
+      "url": "https://github.com/zubin-li"
+    },
+    {
+      "name": "Antigravity",
+      "url": "https://github.com/antigravity"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/zubin-li/ai-commanding-heights-analysis/issues"
