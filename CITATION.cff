@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this intelligence research deck, data synthesis, or empirical models, please cite it as below."
+title: "The Commanding Heights of AI: Foundation Model Commoditization, Empirical Fact-Check, and Strategic Reallocation of Economic Rent"
+version: 2.6.0
+date-released: 2026-11-02
+url: "https://zubin-li.github.io/ai-commanding-heights-analysis/"
+repository-code: "https://github.com/zubin-li/ai-commanding-heights-analysis"
+license: "MIT"
+authors:
+  - family-names: "Li"
+    given-names: "Zubin"
+    website: "https://github.com/zubin-li"
+  - name: "Antigravity Research Group"
+    website: "https://github.com/antigravity"
+keywords:
+  - "Artificial Intelligence"
+  - "Foundation Models"
+  - "The Commanding Heights"
+  - "Economic Rent"
+  - "Inference Deflation"
+  - "Capex Cliff"
+  - "Empirical Fact Check"
+  - "Consulting Slide Deck"
+  - "ECharts"
+preferred-citation:
+  type: software
+  title: "The Commanding Heights of AI: Foundation Model Commoditization, Empirical Fact-Check, and Strategic Reallocation of Economic Rent"
+  authors:
+    - family-names: "Li"
+      given-names: "Zubin"
+    - name: "Antigravity Research Group"
+  year: 2026
+  url: "https://zubin-li.github.io/ai-commanding-heights-analysis/"

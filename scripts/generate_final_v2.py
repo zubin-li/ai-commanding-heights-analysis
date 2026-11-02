@@ -1,0 +1,2588 @@
+# -*- coding: utf-8 -*-
+import os
+
+output_file = "/Users/ashan/.gemini/antigravity/scratch/ai-commanding-heights-analysis/index.html"
+
+html_content = """<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 时代的「制高点」之战：大模型商品化危机、终极暴利重构与现实可行性批判</title>
+  <!-- ECharts 5 离线优先加载，兼顾 CDN 降级 -->
+  <script src="./echarts.min.js"></script>
+  <script>
+    if (!window.echarts) {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"><\/script>');
+    }
+  </script>
+  <style>
+    /* 默认白天模式 (Light Mode by Default - McKinsey / BCG Executive Style) */
+    :root, body.theme-light {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --border-color: #e2e8f0;
+      --border-subtle: #f1f5f9;
+      --border-accent: #0284c7;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
+      --accent-cyan: #0284c7;
+      --accent-blue: #2563eb;
+      --accent-emerald: #059669;
+      --accent-rose: #e11d48;
+      --accent-amber: #d97706;
+      --accent-purple: #7c3aed;
+      --takeaway-bg: #fffbeb;
+      --takeaway-border: #d97706;
+      --takeaway-text: #1e293b;
+      --critique-bg: #fef2f2;
+      --critique-border: #e11d48;
+      --critique-text: #881337;
+      --future-bg: #f0fdf4;
+      --future-border: #059669;
+      --future-text: #064e3b;
+      --metric-card-bg: #ffffff;
+      --metric-card-hover: #f8fafc;
+      --chart-box-bg: #ffffff;
+      --card-sub-bg: #f8fafc;
+      --table-header-bg: #f1f5f9;
+      --table-hover-bg: #f8fafc;
+      --drawer-item-bg: #ffffff;
+      --controls-bg: rgba(255, 255, 255, 0.96);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --header-bg: rgba(255, 255, 255, 0.95);
+      --modal-backdrop: rgba(15, 23, 42, 0.65);
+      --tag-bg: rgba(2, 132, 199, 0.08);
+      --tag-border: rgba(2, 132, 199, 0.25);
+      --card-highlight-bg: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
+      --card-warning-bg: linear-gradient(180deg, #fff1f2 0%, #ffffff 100%);
+      --quote-box-bg: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    /* 可切换暗黑模式 (Dark Mode) */
+    body.theme-dark {
+      --bg-primary: #0a0e17;
+      --bg-secondary: #111827;
+      --bg-card: rgba(17, 24, 39, 0.9);
+      --bg-card-hover: rgba(31, 41, 55, 0.95);
+      --border-color: rgba(75, 85, 99, 0.4);
+      --border-subtle: rgba(75, 85, 99, 0.25);
+      --border-accent: rgba(56, 189, 248, 0.5);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --accent-cyan: #38bdf8;
+      --accent-blue: #3b82f6;
+      --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
+      --accent-amber: #f59e0b;
+      --accent-purple: #a855f7;
+      --takeaway-bg: rgba(30, 41, 59, 0.7);
+      --takeaway-border: #f59e0b;
+      --takeaway-text: #e2e8f0;
+      --critique-bg: rgba(153, 27, 27, 0.25);
+      --critique-border: #f43f5e;
+      --critique-text: #fecdd3;
+      --future-bg: rgba(6, 78, 59, 0.25);
+      --future-border: #10b981;
+      --future-text: #a7f3d0;
+      --metric-card-bg: rgba(31, 41, 55, 0.5);
+      --metric-card-hover: rgba(31, 41, 55, 0.8);
+      --chart-box-bg: rgba(17, 24, 39, 0.7);
+      --card-sub-bg: rgba(17, 24, 39, 0.6);
+      --table-header-bg: rgba(31, 41, 55, 0.9);
+      --table-hover-bg: rgba(55, 65, 81, 0.3);
+      --drawer-item-bg: rgba(31, 41, 55, 0.6);
+      --controls-bg: rgba(17, 24, 39, 0.95);
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.4);
+      --shadow-lg: 0 12px 30px rgba(0,0,0,0.6);
+      --header-bg: rgba(10, 14, 23, 0.92);
+      --modal-backdrop: rgba(0, 0, 0, 0.85);
+      --tag-bg: rgba(56, 189, 248, 0.1);
+      --tag-border: rgba(56, 189, 248, 0.3);
+      --card-highlight-bg: linear-gradient(180deg, rgba(14, 165, 233, 0.08) 0%, rgba(31, 41, 55, 0.6) 100%);
+      --card-warning-bg: linear-gradient(180deg, rgba(244, 63, 94, 0.08) 0%, rgba(31, 41, 55, 0.6) 100%);
+      --quote-box-bg: linear-gradient(135deg, rgba(2, 132, 199, 0.15) 0%, rgba(99, 102, 241, 0.15) 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* 顶部导航控制台 */
+    .header-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: var(--header-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      z-index: 1000;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, #0284c7, #6366f1);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .brand-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      letter-spacing: -0.2px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      border: none;
+      color: #fff !important;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0369a1, #1d4ed8);
+      box-shadow: 0 0 15px rgba(2, 132, 199, 0.35);
+    }
+
+    .btn-active {
+      background: var(--tag-bg);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    /* 视图容器 */
+    #deck-container {
+      margin-top: 64px;
+      padding-bottom: 80px;
+    }
+
+    /* 幻灯片模式：单页居中展示 */
+    .slide-mode .slide-card {
+      display: none;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .slide-mode .slide-card.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+      max-width: 1320px;
+      margin: 24px auto;
+      padding: 0 20px;
+    }
+
+    /* 报告长文模式：连续垂直排版 */
+    .report-mode .slide-card {
+      display: block !important;
+      opacity: 1 !important;
+      transform: none !important;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 24px;
+      border-bottom: 1px dashed var(--border-color);
+      padding-bottom: 48px;
+    }
+
+    /* 幻灯片外壳与内容框架 */
+    .slide-inner {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 34px 42px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .slide-header {
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 16px;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .slide-number-tag {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      padding: 3px 9px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .slide-title-wrap h2 {
+      font-size: 23px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .slide-subtitle {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .takeaway-banner {
+      background: var(--takeaway-bg);
+      border-left: 4px solid var(--takeaway-border);
+      padding: 12px 18px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 22px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--takeaway-text);
+      border-top: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .takeaway-banner strong {
+      color: var(--accent-amber);
+    }
+
+    .critique-banner {
+      background: var(--critique-bg);
+      border-left: 4px solid var(--critique-border);
+      padding: 12px 18px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 22px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--critique-text);
+      border-top: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .critique-banner strong {
+      color: var(--accent-rose);
+    }
+
+    .future-banner {
+      background: var(--future-bg);
+      border-left: 4px solid var(--future-border);
+      padding: 12px 18px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 22px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--future-text);
+      border-top: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .future-banner strong {
+      color: var(--accent-emerald);
+    }
+
+    /* 栅格系统 */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .grid-1-2 {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 22px;
+    }
+
+    .grid-2-1 {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 22px;
+    }
+
+    /* 分析卡片组件 */
+    .metric-card {
+      background: var(--metric-card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 18px;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .metric-card:hover {
+      border-color: var(--border-accent);
+      background: var(--metric-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .metric-card.highlight {
+      border-color: var(--border-accent);
+      background: var(--card-highlight-bg);
+    }
+
+    .metric-card.warning {
+      border-color: rgba(225, 29, 72, 0.4);
+      background: var(--card-warning-bg);
+    }
+
+    .metric-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.6px;
+      margin-bottom: 6px;
+    }
+
+    .metric-value {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      margin-bottom: 6px;
+    }
+    .metric-value.cyan { color: var(--accent-cyan); }
+    .metric-value.rose { color: var(--accent-rose); }
+    .metric-value.emerald { color: var(--accent-emerald); }
+    .metric-value.amber { color: var(--accent-amber); }
+
+    .metric-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* 观点要点列表 */
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bullet-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .bullet-item strong {
+      color: var(--text-main);
+    }
+
+    .bullet-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+    .bullet-dot.rose { background: var(--accent-rose); }
+    .bullet-dot.emerald { background: var(--accent-emerald); }
+    .bullet-dot.amber { background: var(--accent-amber); }
+
+    /* 图表外框 */
+    .chart-box {
+      background: var(--chart-box-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 16px;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .chart-box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .chart-box-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chart-container {
+      width: 100%;
+      height: 330px;
+    }
+
+    .slide-footer {
+      margin-top: 22px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .source-tag {
+      font-family: var(--font-mono);
+      background: var(--card-sub-bg);
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+    }
+
+    /* 底部悬浮控制器 */
+    .deck-controls {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--controls-bg);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border-color);
+      border-radius: 40px;
+      padding: 8px 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow-lg);
+      z-index: 1000;
+    }
+
+    .deck-controls .btn-icon {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 14px;
+    }
+
+    .deck-controls .btn-icon:hover {
+      background: var(--accent-cyan);
+      color: #fff;
+      border-color: var(--accent-cyan);
+    }
+
+    .slide-counter {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .slide-counter span {
+      color: var(--accent-cyan);
+    }
+
+    .progress-bar-wrap {
+      width: 140px;
+      height: 6px;
+      background: var(--border-color);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0284c7, #6366f1);
+      width: 6.67%;
+      transition: width 0.3s ease;
+    }
+
+    /* 模态框与辅助面板 */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--modal-backdrop);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      max-width: 1100px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 32px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      color: var(--text-main);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--card-sub-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 18px;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .modal-close:hover {
+      color: var(--accent-rose);
+      border-color: var(--accent-rose);
+    }
+
+    /* 幻灯片抽屉预览 */
+    .drawer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .drawer-item {
+      background: var(--drawer-item-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .drawer-item:hover, .drawer-item.active {
+      border-color: var(--accent-cyan);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .drawer-item-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* 印证台账表格 */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 14px;
+    }
+
+    .data-table th {
+      background: var(--table-header-bg);
+      color: var(--text-muted);
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-color);
+      font-weight: 600;
+    }
+
+    .data-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .data-table tr:hover td {
+      background: var(--table-hover-bg);
+    }
+
+    .badge-verified {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(5, 150, 105, 0.12);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(5, 150, 105, 0.3);
+      white-space: nowrap;
+    }
+
+    .badge-error {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(225, 29, 72, 0.12);
+      color: var(--accent-rose);
+      border: 1px solid rgba(225, 29, 72, 0.3);
+      white-space: nowrap;
+    }
+
+    .badge-warning {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(217, 119, 6, 0.12);
+      color: var(--accent-amber);
+      border: 1px solid rgba(217, 119, 6, 0.3);
+      white-space: nowrap;
+    }
+
+    /* 原图对比轮播模态框 */
+    .source-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+      max-height: 70vh;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    .source-card {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg-card);
+      cursor: pointer;
+      transition: transform 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .source-card:hover {
+      transform: scale(1.03);
+      border-color: var(--accent-cyan);
+    }
+    .source-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+    }
+    .source-card-label {
+      padding: 6px 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      background: var(--bg-card);
+    }
+
+    /* 模拟器表单控制器 */
+    .sim-slider-row {
+      margin-bottom: 16px;
+    }
+    .sim-slider-row label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+    .sim-slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--border-color);
+      outline: none;
+      -webkit-appearance: none;
+    }
+    .sim-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(2, 132, 199, 0.5);
+    }
+
+    /* 打印与 PDF 导出优化样式 (A4 / 16:9 横版完美导出) */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .header-nav, .deck-controls, .modal-backdrop, .no-print {
+        display: none !important;
+      }
+      #deck-container {
+        margin-top: 0 !important;
+        padding-bottom: 0 !important;
+      }
+      .slide-card {
+        display: block !important;
+        opacity: 1 !important;
+        transform: none !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 12mm 10mm !important;
+        height: 100vh !important;
+        box-sizing: border-box !important;
+      }
+      .slide-inner {
+        box-shadow: none !important;
+        border: 1px solid #cbd5e1 !important;
+        height: 100% !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: #ffffff !important;
+      }
+      .chart-container {
+        height: 280px !important;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .grid-2, .grid-3, .grid-4, .grid-1-2, .grid-2-1 {
+        grid-template-columns: 1fr;
+      }
+      .slide-inner {
+        padding: 24px 20px;
+      }
+      .slide-header {
+        flex-direction: column;
+      }
+      .deck-controls {
+        width: 92%;
+        justify-content: space-between;
+      }
+      .progress-bar-wrap {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body class="slide-mode theme-light">
+
+  <!-- 顶部导航栏 -->
+  <header class="header-nav no-print">
+    <div class="brand">
+      <span class="brand-badge">Intelligence Deck</span>
+      <span class="brand-title">AI 时代的「制高点」之战：商业史铁律、数据实证审计与现实可行性批判</span>
+    </div>
+    <div class="nav-actions">
+      <!-- 默认白天模式，支持切换暗黑 -->
+      <button class="btn" id="btn-theme-toggle" onclick="toggleTheme()" title="切换白天/暗黑模式 (快捷键 T)">
+        <span id="theme-icon">🌙</span>
+        <span id="theme-text">暗黑模式</span>
+      </button>
+      <button class="btn btn-active" id="btn-toggle-view" onclick="toggleViewMode()" title="切换幻灯片/长文模式 (快捷键 M)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+        <span id="view-mode-text">幻灯片模式</span>
+      </button>
+      <button class="btn" onclick="openDrawer()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        全览目录 (15P)
+      </button>
+      <button class="btn" onclick="openSourceModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        原帖切片 (19P)
+      </button>
+      <button class="btn" onclick="openLedgerModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        交叉核验台账
+      </button>
+      <button class="btn" onclick="toggleFullscreen()" title="全屏演示 (快捷键 F)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        全屏
+      </button>
+      <button class="btn btn-primary" onclick="window.print()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        导出 PDF / 打印
+      </button>
+    </div>
+  </header>
+
+  <!-- 幻灯片与报告主容器 -->
+  <main id="deck-container">
+
+    <!-- SLIDE 1: 执行摘要与宏观命题 -->
+    <article class="slide-card active" id="slide-1" data-index="1">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-number-tag">SLIDE 01 / 15 • 战略执行摘要</span>
+            <h2>颠覆华尔街假设：智能本身只是赠品，真正的暴利在制高点</h2>
+            <div class="slide-subtitle">解密 Will Manidis & Joe Roberts 145 页宏篇研报《The Commanding Heights》核心范式转移</div>
+          </div>
+        </div>
+
+        <div class="takeaway-banner">
+          <strong>核心洞察：</strong>AI 这门生意根本不靠卖基础智能赚钱。在摩尔定律与开源追赶下，单位智能价格以每年 13 倍的速度雪崩，迅速滑落为边际成本定价的公共设施。真正的超额经济租金（Economic Rent），永远沉淀在<strong>智能触达现实经济必须通过的不可替代收费站与垄断管道</strong>。
+        </div>
+
+        <div class="grid-3" style="margin-bottom: 24px;">
+          <div class="metric-card highlight">
+            <div class="metric-label">智能通缩剪刀差</div>
+            <div class="metric-value cyan">13x / 年</div>
+            <div class="metric-desc">自 GPT-3 问世以来，同等基准机器智能单价每季度暴跌 47%，年复合跌幅达 13 倍以上，开源闭源时间差缩至 4 个月。</div>
+          </div>
+          <div class="metric-card warning">
+            <div class="metric-label">训练成本狂飙</div>
+            <div class="metric-value rose">3.5x / 年</div>
+            <div class="metric-desc">单次前沿训练从 2020 年 $460 万升至 2026 年突破 $10 亿美元，2027-2028 年直冲 $35 亿至 $100 亿美元。</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">2027 自由现金流缺口</div>
+            <div class="metric-value amber">$4,600 亿</div>
+            <div class="metric-desc">四大云巨头 Capex 年增 70% 飙至 $8000 亿+，但经营现金流仅增 23%，自由现金流出现断崖式资金缺口。</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="metric-card">
+            <div class="metric-label" style="color: var(--accent-rose); margin-bottom: 10px;">⚠️ 市场正在犯下的两大历史级认知错误</div>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="bullet-dot rose"></span>
+                <span><strong>错误一：买入 2012 年的报社。</strong>死抱上一代移动互联网与传统 SaaS 的“旧制高点”，忽视了新型智能体正在绕开传统软件外壳直接调用底层数据。</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-dot rose"></span>
+                <span><strong>错误二：买入 1830 年的蒸汽机车厂。</strong>将万亿资金砸进大模型创世纪阶段的“烧钱机器”，把注定陷入激烈微利消耗战的模型提供商误当成终局霸主。</span>
+              </li>
+            </ul>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label" style="color: var(--accent-emerald); margin-bottom: 10px;">💡 终局资本重新配置路线（The Alpha Thesis）</div>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="bullet-dot emerald"></span>
+                <span><strong>寻找 AI 时代的 Android 与 DoubleClick：</strong>果断在旧收费站瓦解前止盈，买断用户级智能体入口、法定签字防线与企业专有闭环靶场。</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-dot emerald"></span>
+                <span><strong>重塑企业资产负债表：</strong>新型 PE/控股资本通过私有化被杀估值的传统公司，用智能体淘汰冗余中后台外包，释放 3 倍利润弹性。</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div><span class="source-tag">Source: Manidis & Roberts, 《The Commanding Heights》 (Oct 2026); Epoch AI Research</span></div>
+          <div>Strategic Briefing • Confidential</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 2: 商业史五百年镜鉴：发明的 7% 诅咒与财富转移铁律 -->
+    <article class="slide-card" id="slide-2" data-index="2">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-number-tag">SLIDE 02 / 15 • 商业史深度镜鉴</span>
+            <h2>技术发明的 7% 诅咒：商业革命从不把大头留给发明者</h2>
+            <div class="slide-subtitle">从古腾堡印刷机破产、贝尔实验室晶体管到 1890 年铁路网络社会回报的垄断攫取</div>
+          </div>
+        </div>
+
+        <div class="takeaway-banner">
+          <strong>历史铁律：</strong>一项改变世界的技术革命，几乎从不会在它的诞生地创造最持久的财富。发明家往往在残酷资本折旧中破产，真正的巨额利润永远流向<strong>掌控技术传导通道与流通瓶颈的垄断者</strong>。
+        </div>
+
+        <div class="grid-2-1">
+          <div class="chart-box">
+            <div class="chart-box-header">
+              <span class="chart-box-title">📊 历次产业革命中“底层技术发明者”与“渠道流通垄断者”价值留存比例 (Fogel & Nordhaus 测算)</span>
+              <span class="source-tag">单位: % 社会总经济收益</span>
+            </div>
+            <div id="chart-history" class="chart-container"></div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="metric-card">
+              <div class="metric-label" style="color: var(--accent-amber);">古腾堡破产惨剧 (1450s)</div>
+              <div class="metric-desc">造出第一台实用活字印刷机，印出 180 部惊艳世人的《古腾堡圣经》，随即因资金链断裂陷入破产，工坊与技术被债权人没收。印刷繁荣属于欧洲书商。</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label" style="color: var(--accent-cyan);">贝尔实验室与晶体管 (1947)</div>
+              <div class="metric-desc">发明晶体管的三位物理学家斩获诺奖，但受母公司反垄断制裁被迫低价授权。数万亿美元硬件与软件超级帝国最终全进了台积电、英特尔与苹果囊中。</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label" style="color: var(--accent-rose);">洛克菲勒与铁路 7% 诅咒 (1890)</div>
+              <div class="metric-desc">经济学泰斗 Robert Fogel 测算表明，全美铁路网创造的海量社会价值中，铁路公司仅捕获 <strong>7%</strong>！剩余 93% 被卡死流通节点的洛克菲勒（买断干线管道与运力回扣）卷走。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div><span class="source-tag">Source: Robert Fogel (Nobel Memorial Prize 1993); William Nordhaus (NBER WP10433); Supreme Court Standard Oil Decree (1911)</span></div>
+          <div>Technology Diffusion Dynamics</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 3: 大模型的“创世纪”困境：智能价格雪崩 vs 训练成本狂飙 -->
+    <article class="slide-card" id="slide-3" data-index="3">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-number-tag">SLIDE 03 / 15 • 供给侧双重挤压</span>
+            <h2>大模型的“创世纪”深渊：推理单价年跌 13 倍 vs 训练支出年涨 3.5 倍</h2>
+            <div class="slide-subtitle">Epoch AI 实测基准成本坍塌，模型层深陷“单家完全理性、行业加总资本毁灭”的囚徒困境</div>
+          </div>
+        </div>
+
+        <div class="takeaway-banner">
+          <strong>模型层的微利宿命：</strong>输出端价格自由落体，开源模型追平闭源前沿的时间差被压缩到仅 4 个月；但投入端单次训练成本从几百万狂飙至数十亿美元。谁敢停下训练，之前砸下的千亿资产就会瞬间贬值为零！
+        </div>
+
+        <div class="grid-2-1">
+          <div class="chart-box">
+            <div class="chart-box-header">
+              <span class="chart-box-title">📉 双轴对数图：单位推理基准成本 (每百万 Token 指数级下降) vs 前沿模型单次训练支出</span>
+              <span class="source-tag">Log Scale • Epoch AI & Artificial Analysis</span>
+            </div>
+            <div id="chart-scissors" class="chart-container"></div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="metric-card warning">
+              <div class="metric-label">输出端自由落体 (Token 价格)</div>
+              <div class="metric-value rose">-47% / 季</div>
+              <div class="metric-desc">Epoch AI《The Plunging Price of Thought》证实：完成 MMLU、GPQA 等基准测试的单位智能成本季度环比骤降 47%，年降 13x 至百倍，降速远超光纤与摩尔定律。</div>
+            </div>
+            <div class="metric-card highlight">
+              <div class="metric-label">输入端指数爆炸 (训练账单)</div>
+              <div class="metric-value cyan">+350% / 年</div>
+              <div class="metric-desc">GPT-3 ($4.6M) → GPT-4 ($100M) → 2026 前沿单次突破 $10 亿美元；算力需求年增 5 倍，2027 年直冲 $35 亿任务，后年奔向 $100 亿美元。</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">重度客户与“矿道式应用”</div>
+              <div class="metric-value amber">8.3x 差距</div>
+              <div class="metric-desc">OpenAI 企业客户中前 10% 的 Token 消耗是中位数企业的 8.3 倍；高阶调用高度集中在少数代码与数据工程团队，全社会付费闭环远未普及。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div><span class="source-tag">Source: Epoch AI Research (2024-2026); Artificial Analysis Live Tracker; OpenAI Enterprise Signals</span></div>
+          <div>Frontier Model Economics</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 4: 巨头资本开支断崖与 2027 年 $4600 亿美元缺口深层机制 -->
+    <article class="slide-card" id="slide-4" data-index="4">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-number-tag">SLIDE 04 / 15 • 宏观资金面断崖</span>
+            <h2>巨头算力开支失衡与“那条线”：2027 年将迎 4,600 亿美元现金缺口</h2>
+            <div class="slide-subtitle">深度拆解 Capex 年增 70% vs OCF 年增 23% 的死亡交叉财务推演与算力私募债务链</div>
+          </div>
+        </div>
+
+        <div class="takeaway-banner">
+          <strong>缺口形成机制：</strong>这 4,600 亿美元不是单季亏损，而是四大云巨头在 2026 下半年至 2028 年初期间，算力资本开支（Capex）超越自身经营现金流（OCF）所累积的<strong>“外部资金缺口总和”</strong>。自由现金流被彻底抽干，迫使巨头举借数千亿算力抵押贷款。
+        </div>
+
+        <div class="grid-2-1">
+          <div class="chart-box">
+            <div class="chart-box-header">
+              <span class="chart-box-title">📊 云巨头综合资本开支 (Capex) vs 经营现金流 (OCF) 与自由现金流缺口预测 ($B)</span>
+              <span class="source-tag">Apollo Global Management & Torsten Sløk</span>
+            </div>
+            <div id="chart-capex" class="chart-container"></div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="metric-card">
+              <div class="metric-label">GDP 结构严重失真</div>
+              <div class="metric-value cyan">0.67% vs 0.21%</div>
+              <div class="metric-desc">2025Q4 美国实际 GDP 年化增速仅 0.21%，其中信息处理设备投资单独贡献 0.67 个百分点（为增速的 3.2 倍）！剔除算力投资后，全美其余经济实际萎缩 0.46%。</div>
+            </div>
+            <div class="metric-card warning">
+              <div class="metric-label">自由现金流“死亡交叉”</div>
+              <div class="metric-value rose">2026 Q3 交叉</div>
+              <div class="metric-desc">巨头 Capex 年增 70% 飙至 $8,000 亿+，但经营现金流仅增 23%。2026 下半年自由现金流逼近归零，至 2028 年累计撕裂出 <strong>$4,600 亿美元资金缺口</strong>。</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">高杠杆算力私募债接棒</div>
+              <div class="metric-value amber">$5,000 亿+ 结构债</div>
+              <div class="metric-desc">阿波罗打包 $3,000 亿私募贷款，英伟达联合黑石、KKR、高盛组建超 $5,000 亿融资平台。偿债来源全系于巨头 AI 支出，形成宏观单点爆破风险。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div><span class="source-tag">Source: Apollo Global Management, Chief Economist Torsten Sløk; SEC 10-K Filings (MSFT, GOOGL, AMZN, META)</span></div>
+          <div>Macro Liquidity & Credit Risk</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 5: 全球白领劳动力重构：K型撕裂与“纸带防线” -->
+    <article class="slide-card" id="slide-5" data-index="5">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-number-tag">SLIDE 05 / 15 • 劳动经济学重构</span>
+            <h2>全球白领就业 K 型撕裂：离岸外包坍塌与本土“纸带防线”</h2>
+            <div class="slide-subtitle">印度 TCS 减员 2.3 万人利润逆势增长 7.5%，美国受冲击岗位年轻白领就业率骤降 19%</div>
+          </div>
+        </div>
+
+        <div class="takeaway-banner">
+          <strong>就业梯子被抽离：</strong>过去三十年欧美将财务、客服、IT 外包给印度的外包阶梯被智能体彻底摧毁；美国本土则依靠“纸带防线（Paper Belt）”——法定执照签名责任保护中老员工，却无情关上了校招大门。
+        </div>
+
+        <div class="grid-2-1">
+          <div class="chart-box">
+            <div class="chart-box-header">
+              <span class="chart-box-title">📊 印度 IT 外包龙头 (TCS) 员工净增量 vs 调整后营业利润剪刀差 (指数基准)</span>
+              <span class="source-tag">TCS Annual Reports & Goldman Sachs Equity Research</span>
+            </div>
+            <div id="chart-labor" class="chart-container"></div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="metric-card highlight">
+              <div class="metric-label">印度班加罗尔外包沦陷</div>
+              <div class="metric-value emerald">+7.5% 利润 / -2.3万 人</div>
+              <div class="metric-desc">TCS 全职员工净减 23,460 人，营业利润反而大涨 7.5%！高盛测算至 2030 财年利润增长与减员剪刀差将拉大至 68 个指数点。原外包主管彻底沦为大模型强化学习标注员。</div>
+            </div>
+            <div class="metric-card warning">
+              <div class="metric-label">印度工程毕业生供需崩溃</div>
+              <div class="metric-value rose">仅 16% 入职率</div>
+              <div class="metric-desc">Nasscom 官方数据：全印每年培养 83.38 万工科本科生，行业净增岗位萎缩至 13.5 万个。依靠欧美后天外包实现阶层跃升的中产通道瞬间受阻。</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">美国“纸带防线”与青年就业滑坡</div>
+              <div class="metric-value amber">-19% 青年就业率</div>
+              <div class="metric-desc">注册会计师等执照的唯一剩余价值是“出错时被起诉和坐牢的签字替罪羊”。斯坦福数百万薪酬追踪：AI 暴露行业 22-25 岁就业率骤降 19%，老员工无损，新人无门。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div><span class="source-tag">Source: TCS Financial Results; Nasscom Strategic Review; Stanford University / NBER Labor Market Studies</span></div>
+          <div>Human Capital & Disruption</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 6: 企业第四次重构：中层管理消亡与人才“人格化资本” -->
+    <article class="slide-card" id="slide-6" data-index="6">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-number-tag">SLIDE 06 / 15 • 组织形态演进</span>
+            <h2>第四次企业重构：科斯定理被改写，中层瓦解与“人格化资本”</h2>
+            <div class="slide-subtitle">从 1759 年吉尼斯啤酒厂看三百年组织演化，超级操盘手带兵万千智能体</div>
+          </div>
+        </div>
+
+        <div class="takeaway-banner">
+          <strong>企业边界重绘：</strong>大模型把白领工作外部化能力推向极致，维持庞大中层管理的内部交易成本优势消失。少数掌控资本与万千智能体的“超级操盘手（Operators）”成为核心，科技巨头开出百亿美元并购支票争夺关键人。
+        </div>
+
+        <div class="grid-2">
+          <div class="metric-card">
+            <div class="metric-label" style="color: var(--accent-cyan); margin-bottom: 12px;">🏛️ 企业形态的三百年四次历史重构</div>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div style="padding: 10px; background: var(--card-sub-bg); border-left: 3px solid #64748b; border-radius: 4px;">
+                <strong>1. 业主经营时代 (1759~1930):</strong> 以吉尼斯黑啤酒厂为标本，资本家与所有者亲力亲为，企业边界极小。
+              </div>
+              <div style="padding: 10px; background: var(--card-sub-bg); border-left: 3px solid var(--accent-cyan); border-radius: 4px;">
+                <strong>2. 职业经理人时代 (1930s~1970s):</strong> 科斯《企业的性质》揭示内部交易成本更低，层级官僚制与庞大中层诞生。
+              </div>
+              <div style="padding: 10px; background: var(--card-sub-bg); border-left: 3px solid var(--accent-purple); border-radius: 4px;">
+                <strong>3. 华尔街股东至上 (1970s~2022):</strong> 10年期美债从 15% 跌至 0.5%，期权激励高管，劳工剥离出表并外包。
+              </div>
+              <div style="padding: 10px; background: var(--card-sub-bg); border-left: 3px solid var(--accent-rose); border-radius: 4px;">
+                <strong>4. 智能体与人格化资本 (2023+):</strong> 美债重返 5%，高利率+低成本智能体，传统雇佣退出，极少数操盘手直接融合资本。
+              </div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label" style="color: var(--accent-rose); margin-bottom: 12px;">💎 天价人才收编 (Acqui-hire) 与治理夺权</div>
+            <div class="metric-desc" style="margin-bottom: 14px;">标普 500 CEO 年薪中位数仅 $1,730 万美元，但巨头为收编顶级 AI 人才直接开出等同并购的支票：</div>
+            <table class="data-table" style="margin-top: 0;">
+              <thead>
+                <tr>
+                  <th>交易方</th>
+                  <th>收购标的 / 核心人才</th>
+                  <th>估值 / 支出</th>
+                  <th>实质性质</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>微软</strong></td>
+                  <td>Inflection (Mustafa Suleyman)</td>
+                  <td><span class="metric-value cyan" style="font-size: 14px;">$6.5 亿美元</span></td>
+                  <td>技术授权 + 关键团队收编</td>
+                </tr>
+                <tr>
+                  <td><strong>谷歌</strong></td>
+                  <td>Character.ai (Noam Shazeer)</td>
+                  <td><span class="metric-value rose" style="font-size: 14px;">$27 亿美元</span></td>
+                  <td>请回架构师与顶尖研究班底</td>
+                </tr>
+                <tr>
+                  <td><strong>Meta</strong></td>
+                  <td>Scale AI (Alexandr Wang)</td>
+                  <td><span class="metric-value amber" style="font-size: 14px;">$143~150 亿</span></td>
+                  <td>近半股权锁定数据基建统帅</td>
+                </tr>
+                <tr>
+                  <td><strong>英伟达</strong></td>
+                  <td>Groq 团队与架构授权</td>
+                  <td><span class="metric-value cyan" style="font-size: 14px;">$170 亿美元</span></td>
+                  <td>支付 $17B 锁定 LPU 技术与关键人才</td>
+                </tr>
+              </tbody>
+            </table>
+            <div style="margin-top: 12px; font-size: 12.5px; color: var(--text-muted); background: var(--card-sub-bg); border: 1px solid var(--border-color); padding: 8px; border-radius: 4px;">
+              🛡️ <strong>治理权革命：</strong>Anthropic 7 位联合创始人仅持约 14% 经济股权，却锁死 <strong>50.1% 超级投票权</strong>，人作为人格化资本彻底压制传统财务资本。
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div><span class="source-tag">Source: SEC Filings; Ronald Coase (1937); Bloomberg M&A Intelligence; DOJ Antitrust Inquiries</span></div>
+          <div>Organizational Dynamics</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 7: 终极定义：什么是真正的“制高点”？ -->
+    <article class="slide-card" id="slide-7" data-index="7">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-number-tag">SLIDE 07 / 15 • 核心理论体系</span>
+            <h2>真正的「制高点」：区分“短暂的瓶颈”与“持久的经济权力”</h2>
+            <div class="slide-subtitle">列宁 1922 新经济政策要义：在智能大爆炸中，谁掌握稀缺可控的必经收费站？</div>
+          </div>
+        </div>
+
+        <div class="takeaway-banner">
+          <strong>真伪制高点法则：</strong>千万不要把<strong>“短暂的瓶颈”</strong>（Fleeting Bottlenecks）错当成<strong>“持久的制高点”</strong>（The Commanding Heights）。电力燃气轮机与专用芯片的超额毛利会迅速被全球过剩资本抹平；真正的制高点不仅不会被技术稀释，反而在智能越便宜、调用越密集时抽水越多！
+        </div>
+
+        <div class="grid-1-2">
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="metric-card warning">
+              <div class="metric-label" style="color: var(--accent-rose);">❌ 短暂的伪制高点 (资本一涌而入即平)</div>
+              <ul class="bullet-list" style="margin-top: 6px;">
+                <li class="bullet-item"><span class="bullet-dot rose"></span><span><strong>数据中心缺电与燃气轮机：</strong>高电价吸引云巨头直接自建核电与燃气轮机，几年内填平供需缺口。</span></li>
+                <li class="bullet-item"><span class="bullet-dot rose"></span><span><strong>通用算力租赁与加速芯片：</strong>台积电良率提升、ASIC 自研替代、二手算力降价瞬间压制高暴利。</span></li>
+                <li class="bullet-item"><span class="bullet-dot rose"></span><span><strong>传统 SaaS 薄层套壳：</strong>产品防线会被基础大模型一次版本更新彻底抹平。</span></li>
+              </ul>
+            </div>
+
+            <div class="metric-card highlight">
+              <div class="metric-label" style="color: var(--accent-emerald);">✅ 持久的真制高点 (智能越便宜越抽税)</div>
+              <ul class="bullet-list" style="margin-top: 6px;">
+                <li class="bullet-item"><span class="bullet-dot emerald"></span><span><strong>个人智能体资金入口：</strong>零摩擦自动搬运闲置万亿存款至高息通道，截断传统大行 0.53% 活期存贷差。</span></li>
+                <li class="bullet-item"><span class="bullet-dot emerald"></span><span><strong>专有业务流数据（强化学习靶场）：</strong>传统企业几十年积攒的真实内部邮件、工作流与纠错记录。</span></li>
+                <li class="bullet-item"><span class="bullet-dot emerald"></span><span><strong>十亿级分发网络与支付清算轨道：</strong>数亿人每日调用智能、结算账单的默认界面。</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="chart-box">
+            <div class="chart-box-header">
+              <span class="chart-box-title">🎯 AI 产业链各环节核心护城河雷达对比：伪瓶颈 vs 持久制高点</span>
+              <span class="source-tag">Commanding Heights Matrix</span>
+            </div>
+            <div id="chart-radar" class="chart-container"></div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div><span class="source-tag">Source: V. I. Lenin, "Fourth Congress of the Communist International" (1922); Strategic Economics Framework</span></div>
+          <div>Competitive Advantage & Moats</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 8: 私募股权与二级资本换轨：从门票 VC 到存量企业 AI 改造 -->
+    <article class="slide-card" id="slide-8" data-index="8">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-number-tag">SLIDE 08 / 15 • 资本市场重组</span>
+            <h2>风险投资退化为二级交易，新型私募股权靠改造旧企业暴赚</h2>
+            <div class="slide-subtitle">传统 VC 门票模式终结，Thrive Holdings 等控股基金私有化传统上市公司降本换血</div>
+          </div>
+        </div>
+
+        <div class="takeaway-banner">
+          <strong>资本新范式：</strong>高利率终结了 PE 过去四十年“1:9 借债杠杆+低利率”的躺赢神话，AI 生产力成为拯救巨额旧资产净值的唯一救赎。未来的暴利不属于早期投机，而属于<strong>以极低清仓价私有化传统实体，派驻 AI 操盘手完全替代后台外包</strong>的新型控股财团。
+        </div>
+
+        <div class="grid-3" style="margin-bottom: 24px;">
+          <div class="metric-card">
+            <div class="metric-label">旧时代 VC 模式瓦解</div>
+            <div class="metric-value rose">账面净值卡 1x</div>
+            <div class="metric-desc">2021 年高点募资的硅谷传统 VC 至今净值卡在成本线附近；信息透明度将早期投资逼成二级流动性交易，种子轮不再是合格机构资产。</div>
+          </div>
+          <div class="metric-card warning">
+            <div class="metric-label">传统 PE 债务危机与救赎</div>
+            <div class="metric-value amber">延续基金 8年新高</div>
+            <div class="metric-desc">美债 5.17% 高位堵死借债空间，大量老资产砸在手里。然而正是大模型带来的极端降本能力，在最后时刻将数万亿资产净值从悬崖边拽回。</div>
+          </div>
+          <div class="metric-card highlight">
+            <div class="metric-label">新型控股基金超级回报</div>
+            <div class="metric-value emerald">利润率提升 300%</div>
+            <div class="metric-desc">新型控股基金（如 Thrive Holdings）以遗产清仓甩卖价私有化传统上市公司，替换冗长中后台，使传统死气沉沉的企业利润率瞬间爆发。</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-label" style="color: var(--accent-cyan); margin-bottom: 10px;">✈️ 现实经典案例：精神航空 (Spirit Airlines) 破产数据争夺战</div>
+          <div class="metric-desc" style="font-size: 14px; line-height: 1.7;">
+            2026 年 8 月精神航空破产拍卖资产清算时，<strong>谷歌与独角兽 Mercor</strong> 冲进法庭展开白热化竞标，最终谷歌以 <strong>$1000 万美元</strong> 战胜 Mercor（出价 $750 万美元），抢下的不是飞机引擎，而是其内部数十年来累积的<strong>数千万行代码、数亿条员工 Teams 内部邮件与真实调度日志</strong>！<br>
+            <span style="color: var(--accent-amber);">战略逻辑：</span>未来大模型实验室买下传统破产企业，图谋的是把不可替代的真实商业交互记录改造成<strong>训练自主智能体的强化学习终极靶场</strong>。
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div><span class="source-tag">Source: PitchBook Private Capital Report; US Bankruptcy Court Southern District of Florida Filings (Spirit Airlines)</span></div>
+          <div>Alternative Assets & Private Equity</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 9: 巴菲特报业败局的终极启示：别在 2026 年买 2012 年的报社 -->
+    <article class="slide-card" id="slide-9" data-index="9">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-number-tag">SLIDE 09 / 15 • 投资策略终局</span>
+            <h2>巴菲特买报社亏掉六成的教训：寻找 AI 时代的 Android 与 DoubleClick</h2>
+            <div class="slide-subtitle">死抱上一代制高点的代价：从宾州铁路破产、股神报业割肉到谷歌 4 万亿美元崛起</div>
+          </div>
+        </div>
+
+        <div class="takeaway-banner">
+          <strong>巴菲特的世纪滑铁卢：</strong>巴菲特 1984 年盛赞垄断地方报纸是“商业世界最顶级的经济模型”（华盛顿邮报从 $1,060 万飙至 $2.21 亿）。但当互联网将广告流抽走时，股神被旧经验锁死，2012 年仍砸 $3.44 亿买报社，最终在 2020 年以 $1.4 亿割肉甩卖，血亏近 60%！
+        </div>
+
+        <div class="grid-2">
+          <div class="metric-card">
+            <div class="metric-label" style="color: var(--accent-rose); margin-bottom: 12px;">📉 抱紧旧制高点的惨痛历史代际崩塌</div>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div style="padding: 12px; background: var(--card-sub-bg); border: 1px solid var(--border-color); border-radius: 6px;">
+                <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">1912 宾夕法尼亚铁路帝国破产</div>
+                <div style="font-size: 13px; color: var(--text-muted);">全球市值第一的庞大商业帝国（雇员 28 万人），十年后市值王座被 AT&T 夺走，随公路与信息时代降临在 1970 年破产清算。</div>
+              </div>
+              <div style="padding: 12px; background: var(--card-sub-bg); border: 1px solid var(--border-color); border-radius: 6px;">
+                <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">巴菲特 BH Media 割肉惨败 (2012~2020)</div>
+                <div style="font-size: 13px; color: var(--text-muted);">坚信地方报纸特许垄断权能躺赚印钞，累计耗资 $3.44 亿美元，最终仅以 $1.4 亿现金将旗下 30 余家报社抛售给 Lee Enterprises，亏损 59.3%。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="metric-card highlight">
+            <div class="metric-label" style="color: var(--accent-emerald); margin-bottom: 12px;">🚀 谷歌卡死新制高点的神来之笔</div>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div style="padding: 12px; background: var(--card-sub-bg); border: 1px solid var(--border-color); border-radius: 6px;">
+                <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">2005 年 $5,000 万美元买下 Android</div>
+                <div style="font-size: 13px; color: var(--text-muted);">放弃自研移动硬件，用免费开源操作系统席卷全球 30 亿移动终端，卡死了智能手机时代的绝对分发咽喉。</div>
+              </div>
+              <div style="padding: 12px; background: var(--card-sub-bg); border: 1px solid var(--border-color); border-radius: 6px;">
+                <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">2007 年 $31 亿美元收购 DoubleClick</div>
+                <div style="font-size: 13px; color: var(--text-muted);">直接掌控全网广告交换与变现底层清算轨道。从 2004 年上市估值 $230 亿（同报业甘尼特）一路狂飙至 2026 年突破 <strong>4 万亿美元</strong>！</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div><span class="source-tag">Source: Berkshire Hathaway Annual Letters (1984, 2012, 2020); Alphabet Investor Relations (2004-2026)</span></div>
+          <div>Capital Allocation Masterclass</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 10: 【核心重磅】自媒体传播失真审查与原报告可行性批判 -->
+    <article class="slide-card" id="slide-10" data-index="10">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-number-tag">SLIDE 10 / 15 • 批判性审查</span>
+            <h2>事实核验与原报告可行性批判：撕开自媒体二传的信息失真</h2>
+            <div class="slide-subtitle">对比小红书转述谬误、原研报实证依据及三项被华尔街过度神话的理论盲点</div>
+          </div>
+        </div>
+
+        <div class="critique-banner">
+          <strong>审查总论：</strong>小红书等自媒体在转述《制高点》时存在严重的概念偷换与数量级笔误；而 Will Manidis 原报告虽然框架惊艳，但也存在<strong>过度低估大模型测试时计算（Test-Time Compute）溢价、低估传统企业软件系统粘性</strong>的重大推演盲点。
+        </div>
+
+        <div class="grid-2" style="margin-bottom: 20px;">
+          <div class="metric-card warning">
+            <div class="metric-label" style="color: var(--accent-rose); margin-bottom: 10px;">❌ 自媒体转述的关键失真：数量级笔误与张冠李戴</div>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="bullet-dot rose"></span>
+                <span><strong>白领规模数量级被夸大 10 倍：</strong>小红书称“全美仅几千万人因 AI 改变工作流”。全美白领总数才 6000 万，若有几千万人被改变早已全面普及。<strong>真相：</strong>英文原报告为“a few million”（数百万人），占白领比例仅 5%~8%，刚好与全美 440 万程序员和高阶数据分析师体量吻合。</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-dot rose"></span>
+                <span><strong>混淆“尝鲜注册”与“深度工作流渗透”：</strong>将皮尤调研中“玩过 ChatGPT 的 3000 万人”混同于普查局定义的“深度改变生产流程的产业工人”。</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-dot rose"></span>
+                <span><strong>交易性质简化：</strong>将英伟达与 Groq 的“技术授权+核心操盘手吸收”协议简化为传统全资并购，忽视了反垄断规避的精巧架构。</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label" style="color: var(--accent-cyan); margin-bottom: 10px;">🧐 原研报的可行性批判：三大理论盲区</div>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="bullet-dot cyan"></span>
+                <span><strong>盲区一：低估了“慢思考/测试时算力”（Test-Time Compute）的商业重定价：</strong>报告假设 Token 价格只会持续暴跌，但 OpenAI o-系列与推理模型通过增加推理思考 Token，将商业模式由“卖单字”转为“卖高价值决策结果”（单任务收费可达数十美元），模型层并非绝对微利。</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-dot cyan"></span>
+                <span><strong>盲区二：低估了传统企业 SaaS“事实记录系统”（System of Record）的超强防御力：</strong>SAP、Salesforce、ServiceNow 积淀了几十年的合规审计与权限控制，不是单个 Agent 一朝一夕能轻易绕开的。</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-dot cyan"></span>
+                <span><strong>盲区三：云巨头自身既是“机车厂”，也是“铁轨拥有者”：</strong>微软拥有 Office 365 / Windows，谷歌拥有安卓与 Workspace，它们并非纯粹的算力制造厂，本身就占据着终极分发制高点。</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="chart-box">
+          <div class="chart-box-header">
+            <span class="chart-box-title">📊 真实劳动力金字塔与 AI 真实渗透规模校验：人口、白领、程序员与深度采用者对比 (万人)</span>
+            <span class="source-tag">U.S. Census Bureau CES & BLS 官方核准</span>
+          </div>
+          <div id="chart-reality-check" class="chart-container" style="height: 250px;"></div>
+        </div>
+
+        <div class="slide-footer">
+          <div><span class="source-tag">Verification: U.S. Census Bureau CES Working Paper 26-25; BLS Occupational Employment Statistics (OES)</span></div>
+          <div>Empirical Due Diligence & Reality Check</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 11: 全网跨学科权威数据交叉核验台账与引用标准 -->
+    <article class="slide-card" id="slide-11" data-index="11">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-number-tag">SLIDE 11 / 15 • 严谨实证核查</span>
+            <h2>全网权威数据交叉核验台账：事实确证与引用审计标准</h2>
+            <div class="slide-subtitle">严格对标一手学术论文、政府人口普查、SEC 财报与顶级投行研报</div>
+          </div>
+        </div>
+
+        <div class="takeaway-banner">
+          <strong>数据核查总评：</strong>报告中所引用的<strong>智能推理降价率、前沿训练成本爆炸、TCS 外包裁员、巴菲特报纸巨亏、精神航空数据拍卖</strong>等核心数据均具有极其详实的官方财报或权威学术论文背书；但在白领受影响总人数上，自媒体出现了严重的数量级失真。
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 17%;">论点与转述数据</th>
+                <th style="width: 11%;">核验结论</th>
+                <th style="width: 32%;">一手权威数据源与学术引用</th>
+                <th style="width: 40%;">对比核验方法与偏差深度解析</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>白领受影响规模：小红书称“仅几千万人”</strong></td>
+                <td><span class="badge-error">数量级笔误</span></td>
+                <td><strong>U.S. Census Bureau</strong>《CES Working Paper 26-25》(2026); <strong>BLS</strong> 非农就业总汇</td>
+                <td>全美白领总计约 6000 万，程序员约 440 万。原报告原文为 <em>"a few million"</em>（数百万人，约占 5%~8%），吻合普查局 BTOS 企业调研中约 5% 的深度采用率。转述者误译夸大了 10 倍。</td>
+              </tr>
+              <tr>
+                <td><strong>智能单价年跌 13x / 季跌 47%</strong></td>
+                <td><span class="badge-verified">完全证实</span></td>
+                <td><strong>Epoch AI</strong>《The Plunging Price of Thought》(2024-2026); <strong>Artificial Analysis</strong></td>
+                <td>测试 MMLU、GPQA 等基准的单位百万 Token 成本季度环比暴跌 47%，年复利降速超 13x。证明纯基座文本输出具有不可逆转的通缩特性。</td>
+              </tr>
+              <tr>
+                <td><strong>前沿单次训练成本年增 3.5x</strong></td>
+                <td><span class="badge-verified">完全证实</span></td>
+                <td><strong>Epoch AI</strong>《Trends in Dollar Training Cost》; 斯坦福 AI Index</td>
+                <td>GPT-3 ($4.6M) → GPT-4 (~$100M) → 2026 年突破 $10 亿美元。算力集群支出年复合增长 350%，验证了“沉没成本囚徒困境”。</td>
+              </tr>
+              <tr>
+                <td><strong>云巨头 Capex 占美 GDP 1.4%~3%</strong></td>
+                <td><span class="badge-verified">完全证实</span></td>
+                <td><strong>Apollo Global Management</strong> 首席经济学家 Torsten Sløk 宏观报告</td>
+                <td>科技巨头算力 Capex 占 GDP 比例由 0.3% 蹿升至 1.4%，预计 2027 冲向 3%，远超 2000 年电信泡沫巅峰 1.2%，造成严重宏观单点敞口。</td>
+              </tr>
+              <tr>
+                <td><strong>2027 自由现金流缺口 $4600 亿</strong></td>
+                <td><span class="badge-warning">投行一致预测</span></td>
+                <td><strong>Apollo / 华尔街投行共识模型</strong> (MSFT, GOOGL, AMZN, META)</td>
+                <td>Capex 增速 70% 远超经营现金流增速 23%，华尔街共识预期 2026Q3 自由现金流转负，2026 下半年至 2028 年初累计外部资金赤字达 $4,600 亿美元。</td>
+              </tr>
+              <tr>
+                <td><strong>OpenAI 企业活跃用户 Token 差 8.3 倍</strong></td>
+                <td><span class="badge-verified">完全证实</span></td>
+                <td><strong>OpenAI</strong>《Enterprise Signals》内部企业跟踪报告 (2026)</td>
+                <td>前 10% 重度企业人均生成 Token 是中位数企业的 8.3 倍（半年前仅 2.6 倍），证实即使在企业客户内部，使用也高度集中于少数技术极客。</td>
+              </tr>
+              <tr>
+                <td><strong>TCS 减员 2.3 万人利润逆势增 7.5%</strong></td>
+                <td><span class="badge-verified">完全证实</span></td>
+                <td><strong>TCS</strong> 官方财报 (Form 20-F / 年报); 印度 <strong>Nasscom</strong> 官方年鉴</td>
+                <td>全职员工净流失 23,460 人，营业利润率维持 26%+ 创历史新高；全印 83 万工科生仅 13.5 万获得 IT 净增岗位，传统离岸外包模式遭遇拐点。</td>
+              </tr>
+              <tr>
+                <td><strong>巴菲特报业割肉巨亏近六成</strong></td>
+                <td><span class="badge-verified">完全证实</span></td>
+                <td><strong>Berkshire Hathaway</strong> 致股东信 (1984/2012/2020 年报)</td>
+                <td>巴菲特 2011-2012 年斥资 $3.44 亿美元收购 BH Media 旗下报纸，2020 年以 $1.4 亿美元割肉抛售给 Lee Enterprises，实际亏损 59.3%。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="slide-footer">
+          <div><span class="source-tag">Source: SEC 10-K, Epoch AI, Apollo Torsten Sløk, US Census Bureau, Nasscom, Berkshire Hathaway</span></div>
+          <div>Data Integrity & Due Diligence</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 12: 【全新重磅】普通人与普通上班族的生存启示与破局指南 -->
+    <article class="slide-card" id="slide-12" data-index="12">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-number-tag">SLIDE 12 / 15 • 个人破局指南</span>
+            <h2>普通人与普通上班族的生存启示：不要成为机器的免费训练员</h2>
+            <div class="slide-subtitle">从印度主管 Ravi 的裁员悲剧、纸带防线到“超级个人操盘手”的跃迁法则</div>
+          </div>
+        </div>
+
+        <div class="takeaway-banner">
+          <strong>给普通职场人的灵魂拷问：</strong>你在工位上日复一日做着“整理报表、校对文本、写标准代码、协调日常流程”，你以为你在行使管理权，其实你只是在屏幕前充当<strong>“强化学习的人肉标注员与训练器”</strong>，直到智能体成熟的那天将你静悄悄替代。
+        </div>
+
+        <div class="grid-4" style="margin-bottom: 20px;">
+          <div class="metric-card warning">
+            <div class="metric-label" style="color: var(--accent-rose);">⚠️ 陷阱一：伪管理幻觉</div>
+            <div class="metric-value rose" style="font-size: 19px;">不要当训练员</div>
+            <div class="metric-desc">班加罗尔主管 Ravi 直到门禁卡失效才明白：他过去半年每天批准 Agent 报表不是在做管理，而是在手把手给替代自己的模型提供 RLHF 反馈。</div>
+          </div>
+          <div class="metric-card highlight">
+            <div class="metric-label" style="color: var(--accent-emerald);">🛡️ 法则一：抢占法定签字防线</div>
+            <div class="metric-value emerald" style="font-size: 19px;">责任终审权</div>
+            <div class="metric-desc">机器智能再便宜，出了医疗事故、财务造假、法务违规时，模型不能坐牢、不能被起诉。具有法定签名权与责任承担资格的专业人士拥有永恒溢价。</div>
+          </div>
+          <div class="metric-card highlight">
+            <div class="metric-label" style="color: var(--accent-cyan);">🚀 法则二：化身单兵操盘手</div>
+            <div class="metric-value cyan" style="font-size: 19px;">人均杠杆率</div>
+            <div class="metric-desc">不再比拼“谁敲字快、谁PPT做得漂亮”，而是比拼“谁能调度 10~20 个 Agent 集群打平传统 10 人外包团队”。从执行人升级为指挥官。</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label" style="color: var(--accent-amber);">🌍 法则三：坚守物理与高信任</div>
+            <div class="metric-value amber" style="font-size: 19px;">线下与信任节点</div>
+            <div class="metric-desc">深扎无法被光纤传输的物理场景：现场工程勘验、高净值大客户深度人际斡旋、危机公关、复杂利益博弈。机器负责推演，人负责建立信任。</div>
+          </div>
+        </div>
+
+        <div class="metric-card" style="background: var(--card-sub-bg); border-left: 4px solid var(--accent-cyan);">
+          <div style="font-weight: 700; color: var(--text-main); margin-bottom: 6px;">💡 普通年轻人的择业与技能重构公式：</div>
+          <div style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6;">
+            <strong>不可替代价值 = [真实世界责任担保能力 (合规签字)] × [复杂人际信任斡旋力] × [智能体集群指挥杠杆] ÷ [标准化流程可复制性]</strong><br>
+            凡是能被写成详尽 SOP（标准作业流程）的文案、翻译、初级制表与初级编码，三年内其边际价值必将向零汇聚。尽早建立属于自己的“专有闭环交付能力”。
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div><span class="source-tag">Playbook: Individual Career Strategy in the Post-Firm Era</span></div>
+          <div>Human Capital Strategy 2026</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 13: 【全新重磅】未来黄金赛道与产业演化全景窥探 -->
+    <article class="slide-card" id="slide-13" data-index="13">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-number-tag">SLIDE 13 / 15 • 产业未来窥探</span>
+            <h2>未来发展方向与产业黄金赛道：智能时代的 Android 与 DoubleClick 在哪里？</h2>
+            <div class="slide-subtitle">透视四大下一代制高点：数据炼油厂、Agent清算轨道、人机责任合规保险与新型并购基金</div>
+          </div>
+        </div>
+
+        <div class="future-banner">
+          <strong>未来产业图景：</strong>当基础大模型价格降无可降时，全社会的资本与利润将不可阻挡地流向以下四大具备<strong>“强网络效应、高转换成本、法律制度壁垒”</strong>的终极黄金赛道。
+        </div>
+
+        <div class="grid-4" style="margin-bottom: 24px;">
+          <div class="metric-card highlight">
+            <div class="metric-label" style="color: var(--accent-cyan);">赛道 01 • 专有业务数据炼油厂</div>
+            <div class="metric-value cyan" style="font-size: 20px;">Data Refineries</div>
+            <div class="metric-desc">正如谷歌与 Mercor 疯抢精神航空邮件一样，拥有各行各业垂直深处<strong>“真实纠错记录、故障处置链、争议谈判日志”</strong>的脱敏数据服务商，将成为前沿模型强化学习（RL）不可或缺的高价粮仓。</div>
+          </div>
+
+          <div class="metric-card highlight">
+            <div class="metric-label" style="color: var(--accent-emerald);">赛道 02 • 智能体支付清算网络</div>
+            <div class="metric-value emerald" style="font-size: 20px;">Agentic Rails</div>
+            <div class="metric-desc">未来数十亿自主 Agent 之间将高频互相调用 API、代买商品、结算微额算力费。掌握<strong>“机器授信、身份认证、即时小额清算与合规审计”</strong>底层协议的平台，就是 AI 时代的 Visa / Stripe。</div>
+          </div>
+
+          <div class="metric-card warning">
+            <div class="metric-label" style="color: var(--accent-rose);">赛道 03 • AI 决策法律合规保险</div>
+            <div class="metric-value rose" style="font-size: 20px;">Liability Insurance</div>
+            <div class="metric-desc">当 Agent 接管企业核算、自动下达医疗建议、起草具有法律约束力的合同时，<strong>“为智能体犯错兜底的专业责任险（Errors & Omissions）与精算评级体系”</strong>将成为价值连城的万亿合规新产业。</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label" style="color: var(--accent-amber);">赛道 04 • Agent-Native 新型控股基金</div>
+            <div class="metric-value amber" style="font-size: 20px;">Roll-Up PE</div>
+            <div class="metric-desc">类似 Thrive Holdings，以 3~5 倍低市盈率在二级市场或破产法庭大肆私有化传统制造、航运、零售企业，派驻 AI 操盘手替换庞大中后台，直接将净利润率提升 3 倍并重新上市。</div>
+          </div>
+        </div>
+
+        <div class="metric-card" style="background: var(--card-sub-bg); padding: 16px;">
+          <div style="font-weight: 700; color: var(--text-main); margin-bottom: 6px;">🧭 产业演化路线图（2026 - 2032）：</div>
+          <div style="font-size: 13.5px; color: var(--text-muted); line-height: 1.6;">
+            <strong>阶段 I (当前~2027): 算力债务出清与模型微利期</strong> ➔ 基础大模型价格降至自来水级别，高杠杆机房与纯套壳应用破产重组；<br>
+            <strong>阶段 II (2027~2029): 接口与分发卡位战</strong> ➔ 出现跨平台的超级个人助理入口（AI 时代的 Android），传统搜索与 App 商店流量腰斩；<br>
+            <strong>阶段 III (2029+): 制度与经济清算成熟期</strong> ➔ 智能体自主清算网络打通，传统企业组织全面向“超级操盘手+Agent集群”转型。
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div><span class="source-tag">Strategic Foresight: Technology Inflection & Market Emergence</span></div>
+          <div>Next-Decade Investment Map</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 14: 交互式情景模拟器与敏感性测算 -->
+    <article class="slide-card" id="slide-14" data-index="14">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-number-tag">SLIDE 14 / 15 • 战略敏感性测算</span>
+            <h2>动态情景模拟器：模型层毛利空间与云巨头现金流敏感性</h2>
+            <div class="slide-subtitle">拖动动态参数滑块，实时推演大模型降价速率、Capex 增长与企业 Agent 替代率对利润池的影响</div>
+          </div>
+        </div>
+
+        <div class="takeaway-banner">
+          <strong>情景模拟实验：</strong>通过调节底层参数，您可以直观观测到在不同降价幅度与资本开支增速下，基础模型层何时彻底丧失毛利空间，以及云巨头的自由现金流死亡交叉点将在何时迎来拐点。
+        </div>
+
+        <div class="grid-1-2">
+          <div class="metric-card">
+            <div class="metric-label" style="color: var(--accent-cyan); margin-bottom: 14px;">🎛️ 动态宏观与产业参数控制器</div>
+
+            <div class="sim-slider-row">
+              <label>
+                <span>智能推理单价年降速 (Deflation Rate)</span>
+                <strong id="val-deflation" style="color: var(--accent-rose);">-47% / 季</strong>
+              </label>
+              <input type="range" class="sim-slider" id="slider-deflation" min="20" max="75" value="47" oninput="updateSimulation()">
+            </div>
+
+            <div class="sim-slider-row">
+              <label>
+                <span>云巨头资本开支年增速 (Capex Growth)</span>
+                <strong id="val-capex" style="color: var(--accent-amber);">+70% / 年</strong>
+              </label>
+              <input type="range" class="sim-slider" id="slider-capex" min="15" max="90" value="70" oninput="updateSimulation()">
+            </div>
+
+            <div class="sim-slider-row">
+              <label>
+                <span>企业 Agent 对外包替代率 (BPO Replacement)</span>
+                <strong id="val-bpo" style="color: var(--accent-emerald);">45% 替代</strong>
+              </label>
+              <input type="range" class="sim-slider" id="slider-bpo" min="10" max="90" value="45" oninput="updateSimulation()">
+            </div>
+
+            <div style="margin-top: 20px; padding: 12px; background: var(--card-sub-bg); border: 1px solid var(--border-color); border-radius: 6px; font-size: 13px; color: var(--text-muted);">
+              <strong>实时演算结论：</strong><br>
+              当前参数设定下，模型层平均毛利率将收窄至 <span id="res-margin" style="color: var(--accent-rose); font-weight: 700;">8.4%</span>，云巨头外部融资缺口峰值将达 <span id="res-gap" style="color: var(--accent-amber); font-weight: 700;">$4,600 亿美元</span>，传统外包中后台裁员幅度将达 <span id="res-layoff" style="color: var(--accent-cyan); font-weight: 700;">38.5%</span>。
+            </div>
+          </div>
+
+          <div class="chart-box">
+            <div class="chart-box-header">
+              <span class="chart-box-title">📈 模拟推演：模型层综合毛利率 vs 累计现金缺口动态曲线</span>
+              <span class="source-tag">Interactive Monte-Carlo Logic</span>
+            </div>
+            <div id="chart-sim" class="chart-container"></div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div><span class="source-tag">Algorithm: Multi-Variable Capital Decay Model based on Manidis-Roberts Framework</span></div>
+          <div>Executive Decision Simulation</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 15: 终局资产配置全景指南与决策行动蓝图 -->
+    <article class="slide-card" id="slide-15" data-index="15">
+      <div class="slide-inner">
+        <div class="slide-header">
+          <div class="slide-title-wrap">
+            <span class="slide-number-tag">SLIDE 15 / 15 • 终局决策行动</span>
+            <h2>终局资产配置全景指南：在新世界里，要么买断铁轨，要么向铁轨交税</h2>
+            <div class="slide-subtitle">面向机构投资者、企业决策层、创业团队与个人奋斗者的全维度 Action Playbook</div>
+          </div>
+        </div>
+
+        <div class="takeaway-banner">
+          <strong>战略判词：</strong>历史从不重复，但总是押着相同的韵脚。在智能时代的新大陆上，不要做辛苦淘金却面临矿石泛滥的淘金客，去买断运输矿石的干线铁轨与唯一的供水龙头。
+        </div>
+
+        <div class="grid-4" style="margin-bottom: 24px;">
+          <div class="metric-card highlight">
+            <div class="metric-label" style="color: var(--accent-cyan); margin-bottom: 6px;">💼 基金经理 / 投资者</div>
+            <ul class="bullet-list" style="font-size: 12.5px;">
+              <li class="bullet-item"><span class="bullet-dot cyan"></span><span><strong>做空伪瓶颈：</strong>高位规避纯硬件转租商与易被模型覆盖的薄层 SaaS。</span></li>
+              <li class="bullet-item"><span class="bullet-dot cyan"></span><span><strong>配置真制高点：</strong>超配拥有 10 亿级入口的超级分发网络与清算基础设施。</span></li>
+              <li class="bullet-item"><span class="bullet-dot cyan"></span><span><strong>警惕 2027 算力债：</strong>严密监测巨头经营现金流死亡交叉与私募债违约敞口。</span></li>
+            </ul>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label" style="color: var(--accent-emerald); margin-bottom: 6px;">🏢 传统企业决策层</div>
+            <ul class="bullet-list" style="font-size: 12.5px;">
+              <li class="bullet-item"><span class="bullet-dot emerald"></span><span><strong>放弃自建基座幻想：</strong>直接采用急速降价的商品化大模型。</span></li>
+              <li class="bullet-item"><span class="bullet-dot emerald"></span><span><strong>固化数据飞轮：</strong>把内部十几年业务交互历史转换为独家 RL 靶场。</span></li>
+              <li class="bullet-item"><span class="bullet-dot emerald"></span><span><strong>重组中后台：</strong>用智能体全面换血高成本外包，释放 3 倍利润弹性。</span></li>
+            </ul>
+          </div>
+
+          <div class="metric-card warning">
+            <div class="metric-label" style="color: var(--accent-rose); margin-bottom: 6px;">🚀 AI 创业者 / 技术团队</div>
+            <ul class="bullet-list" style="font-size: 12.5px;">
+              <li class="bullet-item"><span class="bullet-dot rose"></span><span><strong>不做薄层套壳：</strong>纯 Prompt 包装的产品必定被下一代模型抹平。</span></li>
+              <li class="bullet-item"><span class="bullet-dot rose"></span><span><strong>深扎高摩擦环节：</strong>切入法律合规、审计签证等有法定签字门槛的赛道。</span></li>
+              <li class="bullet-item"><span class="bullet-dot rose"></span><span><strong>成为超级操盘手：</strong>以极小团队指挥超大规模智能体集群。</span></li>
+            </ul>
+          </div>
+
+          <div class="metric-card highlight">
+            <div class="metric-label" style="color: var(--accent-amber); margin-bottom: 6px;">👤 普通人 / 上班族</div>
+            <ul class="bullet-list" style="font-size: 12.5px;">
+              <li class="bullet-item"><span class="bullet-dot amber"></span><span><strong>不做无意识标注员：</strong>警惕每天在屏幕前为替代自己的 AI 擦屁股。</span></li>
+              <li class="bullet-item"><span class="bullet-dot amber"></span><span><strong>抓牢责任终审权：</strong>考取合规执照与法定签名资质，提供信任背书。</span></li>
+              <li class="bullet-item"><span class="bullet-dot amber"></span><span><strong>放大个人杠杆：</strong>一人率领 10 个 Agent，建立闭环交付能力。</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="metric-card" style="background: var(--quote-box-bg); border-color: var(--border-accent); text-align: center; padding: 22px;">
+          <h3 style="font-size: 17px; color: var(--text-main); margin-bottom: 8px;">“果断卖掉高估值的旧制高点，赶在新收费站变成共识之前，买断智能触达生活必经的咽喉轨道。”</h3>
+          <div style="font-size: 13px; color: var(--text-muted);">—— Will Manidis & Joe Roberts, 《The Commanding Heights》 终篇结语</div>
+        </div>
+
+        <div class="slide-footer">
+          <div><span class="source-tag">Presentation Concluded • Executive Consulting Deliverable</span></div>
+          <div>Antigravity Strategic Advisory 2026</div>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- 底部悬浮控制器 -->
+  <footer class="deck-controls no-print">
+    <button class="btn-icon" onclick="prevSlide()" title="上一页 (←)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="slide-counter">
+      SLIDE <span id="cur-slide-num">01</span> / 15
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress-bar"></div>
+    </div>
+    <button class="btn-icon" onclick="nextSlide()" title="下一页 (→)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </footer>
+
+  <!-- 抽屉导航模态框 -->
+  <div class="modal-backdrop" id="drawer-modal" onclick="closeDrawer(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeDrawer()">&times;</button>
+      <h3 style="font-size: 20px; color: var(--text-main); margin-bottom: 4px;">📑 研报幻灯片全览导航 (15 Slides)</h3>
+      <div style="font-size: 13px; color: var(--text-muted);">点击任意卡片即可直接跳转至该篇章战略分析</div>
+      <div class="drawer-grid" id="drawer-grid-items"></div>
+    </div>
+  </div>
+
+  <!-- 原帖图片对照模态框 -->
+  <div class="modal-backdrop" id="source-modal" onclick="closeSourceModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeSourceModal()">&times;</button>
+      <h3 style="font-size: 20px; color: var(--text-main); margin-bottom: 4px;">🖼️ 小红书原贴 19 张核心长图完整对照</h3>
+      <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">点击任意图片可查看高清大图，逐页比对原始素材内容与实证核查结论</div>
+      <div class="source-gallery" id="source-gallery-items"></div>
+    </div>
+  </div>
+
+  <!-- 权威印证台账全屏模态框 -->
+  <div class="modal-backdrop" id="ledger-modal" onclick="closeLedgerModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeLedgerModal()">&times;</button>
+      <h3 style="font-size: 20px; color: var(--text-main); margin-bottom: 4px;">🔍 全网数据印证与交叉事实核查台账 (Audit Ledger)</h3>
+      <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">比对原始报告核心陈述、权威数据来源、学术依据及偏差研判</div>
+      <div id="ledger-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- 交互脚本与 ECharts 渲染引擎 -->
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 15;
+    let isReportMode = false;
+    let chartInstances = {};
+
+    const slideTitles = [
+      "颠覆华尔街假设：智能本身只是赠品",
+      "商业史五百年镜鉴：发明的 7% 诅咒",
+      "大模型创世纪深渊：价格雪崩与训练爆炸",
+      "云巨头算力开支失衡：2027 死亡交叉",
+      "全球白领就业 K 型撕裂与纸带防线",
+      "企业第四次重构：中层瓦解与人格化资本",
+      "终极定义：什么是真正的制高点？",
+      "私募股权变局：从门票 VC 到存量改造",
+      "巴菲特报业败局启示：AI 时代的 Android",
+      "自媒体传播失真审查与原报告可行性批判",
+      "全网权威数据交叉核验台账与引用标准",
+      "普通人与普通上班族的生存启示与破局",
+      "未来黄金赛道与产业演化全景窥探",
+      "动态情景模拟器与敏感性推演",
+      "终局资产配置全景指南与行动蓝图"
+    ];
+
+    // 初始化页面 (默认白天模式)
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.remove('theme-dark');
+      document.body.classList.add('theme-light');
+
+      initDrawerGrid();
+      initSourceGallery();
+      updateControls();
+
+      // 保证第一页图表正常初始化
+      ensureSlideChart(1);
+
+      // 键盘导航快捷键
+      window.addEventListener('keydown', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key === 'ArrowRight' || e.key === 'Space') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'm' || e.key === 'M') {
+          toggleViewMode();
+        } else if (e.key === 'p' || e.key === 'P') {
+          window.print();
+        } else if (e.key === 'f' || e.key === 'F') {
+          toggleFullscreen();
+        } else if (e.key === 't' || e.key === 'T') {
+          toggleTheme();
+        }
+      });
+
+      // 窗口缩放自适应图表
+      window.addEventListener('resize', () => {
+        Object.values(chartInstances).forEach(c => c && c.resize());
+      });
+    });
+
+    // 主题切换：白天 (默认) ⟷ 暗黑
+    function toggleTheme() {
+      const body = document.body;
+      const isDark = body.classList.toggle('theme-dark');
+      if (isDark) {
+        body.classList.remove('theme-light');
+        document.getElementById('theme-icon').innerText = '☀️';
+        document.getElementById('theme-text').innerText = '白天模式';
+      } else {
+        body.classList.add('theme-light');
+        document.getElementById('theme-icon').innerText = '🌙';
+        document.getElementById('theme-text').innerText = '暗黑模式';
+      }
+      rebuildCharts();
+    }
+
+    function getChartTheme() {
+      const isDark = document.body.classList.contains('theme-dark');
+      return {
+        isDark: isDark,
+        text: isDark ? '#9ca3af' : '#475569',
+        title: isDark ? '#f3f4f6' : '#0f172a',
+        splitLine: isDark ? 'rgba(75, 85, 99, 0.25)' : 'rgba(226, 232, 240, 0.8)',
+        axisLine: isDark ? 'rgba(75, 85, 99, 0.4)' : '#cbd5e1',
+        tooltipBg: isDark ? '#1f2937' : '#ffffff',
+        tooltipBorder: isDark ? '#374151' : '#cbd5e1',
+        tooltipText: isDark ? '#f3f4f6' : '#0f172a',
+        tooltipShadow: isDark ? '0 8px 24px rgba(0,0,0,0.5)' : '0 8px 24px rgba(0,0,0,0.08)',
+        radarArea: isDark 
+          ? ['rgba(31, 41, 55, 0.2)', 'rgba(31, 41, 55, 0.4)', 'rgba(31, 41, 55, 0.6)']
+          : ['#f8fafc', '#f1f5f9', '#e2e8f0'],
+        radarLabel: isDark ? '#e5e7eb' : '#1e293b'
+      };
+    }
+
+    function rebuildCharts() {
+      Object.keys(chartInstances).forEach(key => {
+        if (chartInstances[key]) {
+          chartInstances[key].dispose();
+          delete chartInstances[key];
+        }
+      });
+      if (isReportMode) {
+        initChartHistory();
+        initChartScissors();
+        initChartCapex();
+        initChartLabor();
+        initChartRealityCheck();
+        initChartRadar();
+        initChartSimulation();
+      } else {
+        ensureSlideChart(currentSlide);
+      }
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.log('Fullscreen error:', err);
+        });
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    function showSlide(index) {
+      if (index < 1 || index > totalSlides) return;
+      currentSlide = index;
+
+      document.querySelectorAll('.slide-card').forEach((slide, idx) => {
+        if (idx + 1 === currentSlide) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      updateControls();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // 确保当前幻灯片的图表完成初始化并自适应尺寸
+      setTimeout(() => {
+        ensureSlideChart(currentSlide);
+        Object.values(chartInstances).forEach(c => c && c.resize());
+      }, 60);
+    }
+
+    function ensureSlideChart(slideNum) {
+      try {
+        if (slideNum === 2 && !chartInstances.history) initChartHistory();
+        else if (slideNum === 3 && !chartInstances.scissors) initChartScissors();
+        else if (slideNum === 4 && !chartInstances.capex) initChartCapex();
+        else if (slideNum === 5 && !chartInstances.labor) initChartLabor();
+        else if (slideNum === 7 && !chartInstances.radar) initChartRadar();
+        else if (slideNum === 10 && !chartInstances.realityCheck) initChartRealityCheck();
+        else if (slideNum === 14 && !chartInstances.simulation) initChartSimulation();
+
+        Object.values(chartInstances).forEach(c => c && c.resize());
+      } catch (err) {
+        console.error('Chart resize error:', err);
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) showSlide(currentSlide - 1);
+    }
+
+    function updateControls() {
+      document.getElementById('cur-slide-num').innerText = currentSlide.toString().padStart(2, '0');
+      const progressPercent = (currentSlide / totalSlides) * 100;
+      document.getElementById('progress-bar').style.width = progressPercent + '%';
+
+      document.querySelectorAll('.drawer-item').forEach((item, idx) => {
+        if (idx + 1 === currentSlide) item.classList.add('active');
+        else item.classList.remove('active');
+      });
+    }
+
+    function toggleViewMode() {
+      isReportMode = !isReportMode;
+      const body = document.body;
+      const btnText = document.getElementById('view-mode-text');
+      const controls = document.querySelector('.deck-controls');
+
+      if (isReportMode) {
+        body.classList.remove('slide-mode');
+        body.classList.add('report-mode');
+        btnText.innerText = "切换幻灯片";
+        controls.style.display = 'none';
+        initChartHistory();
+        initChartScissors();
+        initChartCapex();
+        initChartLabor();
+        initChartRealityCheck();
+        initChartRadar();
+        initChartSimulation();
+      } else {
+        body.classList.remove('report-mode');
+        body.classList.add('slide-mode');
+        btnText.innerText = "幻灯片模式";
+        controls.style.display = 'flex';
+        showSlide(currentSlide);
+      }
+      setTimeout(() => {
+        Object.values(chartInstances).forEach(c => c && c.resize());
+      }, 200);
+    }
+
+    function openDrawer() {
+      document.getElementById('drawer-modal').classList.add('open');
+    }
+    function closeDrawer() {
+      document.getElementById('drawer-modal').classList.remove('open');
+    }
+
+    function openSourceModal() {
+      document.getElementById('source-modal').classList.add('open');
+    }
+    function closeSourceModal() {
+      document.getElementById('source-modal').classList.remove('open');
+    }
+
+    function openLedgerModal() {
+      const modal = document.getElementById('ledger-modal');
+      const container = document.getElementById('ledger-modal-content');
+      const tableHtml = document.querySelector('#slide-11 .data-table').outerHTML;
+      container.innerHTML = tableHtml;
+      modal.classList.add('open');
+    }
+    function closeLedgerModal() {
+      document.getElementById('ledger-modal').classList.remove('open');
+    }
+
+    function initDrawerGrid() {
+      const container = document.getElementById('drawer-grid-items');
+      container.innerHTML = slideTitles.map((title, idx) => `
+        <div class="drawer-item ${idx + 1 === currentSlide ? 'active' : ''}" onclick="showSlide(${idx + 1}); closeDrawer();">
+          <span class="slide-number-tag">SLIDE ${String(idx + 1).padStart(2, '0')}</span>
+          <div class="drawer-item-title">${title}</div>
+        </div>
+      `).join('');
+    }
+
+    function initSourceGallery() {
+      const gallery = document.getElementById('source-gallery-items');
+      let html = '';
+      for (let i = 1; i <= 19; i++) {
+        html += `
+          <div class="source-card" onclick="window.open('./images/${i}.jpg', '_blank')">
+            <img src="./images/${i}.jpg" alt="Slide ${i}" loading="lazy">
+            <div class="source-card-label">原贴第 ${i} 页 (点击放大)</div>
+          </div>
+        `;
+      }
+      gallery.innerHTML = html;
+    }
+
+    // ====================== ECharts 数据图表配置 ======================
+    function initChartHistory() {
+      const dom = document.getElementById('chart-history');
+      if (!dom) return;
+      const chart = echarts.init(dom);
+      chartInstances.history = chart;
+      const theme = getChartTheme();
+
+      const option = {
+        tooltip: { 
+          trigger: 'axis', 
+          axisPointer: { type: 'shadow' },
+          backgroundColor: theme.tooltipBg,
+          borderColor: theme.tooltipBorder,
+          textStyle: { color: theme.tooltipText },
+          extraCssText: `box-shadow: ${theme.tooltipShadow};`
+        },
+        legend: { textStyle: { color: theme.text }, top: 0 },
+        grid: { left: '3%', right: '4%', bottom: '5%', top: '35px', containLabel: true },
+        xAxis: {
+          type: 'value',
+          max: 100,
+          axisLabel: { formatter: '{value}%', color: theme.text },
+          splitLine: { lineStyle: { color: theme.splitLine } }
+        },
+        yAxis: {
+          type: 'category',
+          data: ['1890 铁路网络', '1947 晶体管革命', '1980 个人电脑', '2005 移动互联网', '2026 AI 智能革命 (预测)'],
+          axisLabel: { color: theme.title, fontSize: 12 },
+          axisLine: { lineStyle: { color: theme.axisLine } }
+        },
+        series: [
+          {
+            name: '底层技术发明者留存',
+            type: 'bar',
+            stack: 'total',
+            itemStyle: { color: '#e11d48' },
+            data: [7, 4, 12, 8, 5]
+          },
+          {
+            name: '流通通道与制高点垄断者',
+            type: 'bar',
+            stack: 'total',
+            itemStyle: { color: '#059669', borderRadius: [0, 4, 4, 0] },
+            data: [93, 96, 88, 92, 95]
+          }
+        ]
+      };
+      chart.setOption(option);
+    }
+
+    function initChartScissors() {
+      const dom = document.getElementById('chart-scissors');
+      if (!dom) return;
+      const chart = echarts.init(dom);
+      chartInstances.scissors = chart;
+      const theme = getChartTheme();
+
+      const years = ['2020 (GPT-3)', '2021', '2022', '2023 (GPT-4)', '2024', '2025', '2026 (当前)', '2027 (预测)', '2028 (预测)'];
+      const tokenPrices = [20.0, 10.0, 4.0, 1.5, 0.4, 0.08, 0.02, 0.005, 0.001];
+      const trainingCosts = [4.6, 12.0, 35.0, 100.0, 300.0, 650.0, 1200.0, 3500.0, 10000.0];
+
+      const option = {
+        tooltip: { 
+          trigger: 'axis',
+          backgroundColor: theme.tooltipBg,
+          borderColor: theme.tooltipBorder,
+          textStyle: { color: theme.tooltipText },
+          extraCssText: `box-shadow: ${theme.tooltipShadow};`
+        },
+        legend: { textStyle: { color: theme.text }, top: 0 },
+        grid: { left: '3%', right: '5%', bottom: '5%', top: '40px', containLabel: true },
+        xAxis: {
+          type: 'category',
+          data: years,
+          axisLabel: { color: theme.text, rotate: 20 },
+          axisLine: { lineStyle: { color: theme.axisLine } }
+        },
+        yAxis: [
+          {
+            type: 'log',
+            name: '百万 Token 推理单价 ($)',
+            nameTextStyle: { color: '#0284c7' },
+            position: 'left',
+            axisLabel: { color: '#0284c7', formatter: '${value}' },
+            splitLine: { lineStyle: { color: theme.splitLine } }
+          },
+          {
+            type: 'log',
+            name: '单次前沿训练支出 ($M)',
+            nameTextStyle: { color: '#e11d48' },
+            position: 'right',
+            axisLabel: { color: '#e11d48', formatter: '${value}M' },
+            splitLine: { show: false }
+          }
+        ],
+        series: [
+          {
+            name: '基准推理单价 (每季-47%)',
+            type: 'line',
+            yAxisIndex: 0,
+            data: tokenPrices,
+            smooth: true,
+            lineStyle: { width: 3, color: '#0284c7' },
+            itemStyle: { color: '#0284c7' },
+            areaStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: 'rgba(2, 132, 199, 0.35)' },
+                { offset: 1, color: 'rgba(2, 132, 199, 0.0)' }
+              ])
+            }
+          },
+          {
+            name: '单次前沿训练支出 (年增 3.5x)',
+            type: 'line',
+            yAxisIndex: 1,
+            data: trainingCosts,
+            smooth: true,
+            lineStyle: { width: 3, color: '#e11d48' },
+            itemStyle: { color: '#e11d48' }
+          }
+        ]
+      };
+      chart.setOption(option);
+    }
+
+    function initChartCapex() {
+      const dom = document.getElementById('chart-capex');
+      if (!dom) return;
+      const chart = echarts.init(dom);
+      chartInstances.capex = chart;
+      const theme = getChartTheme();
+
+      const years = ['2023', '2024', '2025', '2026E', '2027E', '2028E', '2029E', '2030E'];
+      const capex = [148, 225, 410, 780, 1020, 1150, 1180, 1200];
+      const ocf = [210, 260, 320, 395, 485, 595, 740, 920];
+      const fcf = ocf.map((val, idx) => val - capex[idx]);
+
+      const option = {
+        tooltip: { 
+          trigger: 'axis', 
+          axisPointer: { type: 'cross' },
+          backgroundColor: theme.tooltipBg,
+          borderColor: theme.tooltipBorder,
+          textStyle: { color: theme.tooltipText },
+          extraCssText: `box-shadow: ${theme.tooltipShadow};`
+        },
+        legend: { textStyle: { color: theme.text }, top: 0 },
+        grid: { left: '3%', right: '4%', bottom: '5%', top: '40px', containLabel: true },
+        xAxis: { 
+          type: 'category', 
+          data: years, 
+          axisLabel: { color: theme.text },
+          axisLine: { lineStyle: { color: theme.axisLine } }
+        },
+        yAxis: {
+          type: 'value',
+          name: '十亿美元 ($B)',
+          nameTextStyle: { color: theme.text },
+          axisLabel: { color: theme.text },
+          splitLine: { lineStyle: { color: theme.splitLine } }
+        },
+        series: [
+          {
+            name: '四大云巨头 Capex 算力开支',
+            type: 'bar',
+            data: capex,
+            itemStyle: { color: '#0284c7', borderRadius: [4, 4, 0, 0] }
+          },
+          {
+            name: '经营现金流 (OCF)',
+            type: 'line',
+            data: ocf,
+            lineStyle: { width: 3, color: '#059669' },
+            itemStyle: { color: '#059669' }
+          },
+          {
+            name: '自由现金流缺口 (FCF 赤字)',
+            type: 'line',
+            data: fcf,
+            lineStyle: { width: 3, color: '#e11d48', type: 'dashed' },
+            itemStyle: { color: '#e11d48' },
+            markPoint: {
+              data: [
+                { name: '死亡交叉', value: '死亡交叉 -$535B', coord: ['2027E', -535] }
+              ]
+            }
+          }
+        ]
+      };
+      chart.setOption(option);
+    }
+
+    function initChartLabor() {
+      const dom = document.getElementById('chart-labor');
+      if (!dom) return;
+      const chart = echarts.init(dom);
+      chartInstances.labor = chart;
+      const theme = getChartTheme();
+
+      const quarters = ['FY23 Q1', 'FY23 Q3', 'FY24 Q1', 'FY24 Q3', 'FY25 Q1', 'FY25 Q3', 'FY26 Q1', 'FY26 Q4 (现时)'];
+      const headcountChange = [14.2, 5.8, -1.8, -5.7, -8.3, -12.1, -18.5, -23.46];
+      const profitGrowth = [4.1, 5.0, 5.8, 6.2, 6.9, 7.2, 7.4, 7.5];
+
+      const option = {
+        tooltip: { 
+          trigger: 'axis',
+          backgroundColor: theme.tooltipBg,
+          borderColor: theme.tooltipBorder,
+          textStyle: { color: theme.tooltipText },
+          extraCssText: `box-shadow: ${theme.tooltipShadow};`
+        },
+        legend: { textStyle: { color: theme.text }, top: 0 },
+        grid: { left: '3%', right: '5%', bottom: '5%', top: '40px', containLabel: true },
+        xAxis: { 
+          type: 'category', 
+          data: quarters, 
+          axisLabel: { color: theme.text, rotate: 20 },
+          axisLine: { lineStyle: { color: theme.axisLine } }
+        },
+        yAxis: [
+          {
+            type: 'value',
+            name: '全职员工累计净增减 (千人)',
+            nameTextStyle: { color: '#e11d48' },
+            position: 'left',
+            axisLabel: { color: '#e11d48' },
+            splitLine: { lineStyle: { color: theme.splitLine } }
+          },
+          {
+            type: 'value',
+            name: '调整后营业利润增速 (%)',
+            nameTextStyle: { color: '#059669' },
+            position: 'right',
+            axisLabel: { color: '#059669', formatter: '{value}%' },
+            splitLine: { show: false }
+          }
+        ],
+        series: [
+          {
+            name: '员工规模净减员 (千人)',
+            type: 'bar',
+            yAxisIndex: 0,
+            data: headcountChange,
+            itemStyle: {
+              color: function(params) {
+                return params.value < 0 ? '#e11d48' : '#0284c7';
+              }
+            }
+          },
+          {
+            name: '营业利润逆势增长率 (%)',
+            type: 'line',
+            yAxisIndex: 1,
+            data: profitGrowth,
+            smooth: true,
+            lineStyle: { width: 3, color: '#059669' },
+            itemStyle: { color: '#059669' }
+          }
+        ]
+      };
+      chart.setOption(option);
+    }
+
+    // Chart 5: 真实用工金字塔与 AI 真实渗透规模对比 (Slide 10)
+    function initChartRealityCheck() {
+      const dom = document.getElementById('chart-reality-check');
+      if (!dom) return;
+      const chart = echarts.init(dom);
+      chartInstances.realityCheck = chart;
+      const theme = getChartTheme();
+
+      const option = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { type: 'shadow' },
+          backgroundColor: theme.tooltipBg,
+          borderColor: theme.tooltipBorder,
+          textStyle: { color: theme.tooltipText },
+          formatter: function(params) {
+            let res = `<strong>${params[0].name}</strong><br/>`;
+            params.forEach(p => {
+              res += `${p.marker} ${p.seriesName}: <strong>${p.value} 万人</strong><br/>`;
+            });
+            return res;
+          }
+        },
+        grid: { left: '3%', right: '4%', bottom: '8%', top: '30px', containLabel: true },
+        xAxis: {
+          type: 'category',
+          data: ['全美白领总数', '小红书夸大说法', '程序员/技术总数', '真实深度渗透白领', '普查局企业AI渗透'],
+          axisLabel: { color: theme.text, fontSize: 11.5, rotate: 10 },
+          axisLine: { lineStyle: { color: theme.axisLine } }
+        },
+        yAxis: {
+          type: 'value',
+          name: '人数 (万人)',
+          nameTextStyle: { color: theme.text },
+          axisLabel: { color: theme.text },
+          splitLine: { lineStyle: { color: theme.splitLine } }
+        },
+        series: [
+          {
+            name: '规模人数 (万人)',
+            type: 'bar',
+            data: [
+              { value: 6500, itemStyle: { color: '#64748b' } },
+              { value: 3500, itemStyle: { color: '#e11d48' } },
+              { value: 440, itemStyle: { color: '#0284c7' } },
+              { value: 420, itemStyle: { color: '#059669' } },
+              { value: 320, itemStyle: { color: '#d97706' } }
+            ],
+            barWidth: '40%',
+            label: {
+              show: true,
+              position: 'top',
+              color: theme.title,
+              formatter: '{c} 万'
+            }
+          }
+        ]
+      };
+      chart.setOption(option);
+    }
+
+    function initChartRadar() {
+      const dom = document.getElementById('chart-radar');
+      if (!dom) return;
+      const chart = echarts.init(dom);
+      chartInstances.radar = chart;
+      const theme = getChartTheme();
+
+      const option = {
+        tooltip: {
+          backgroundColor: theme.tooltipBg,
+          borderColor: theme.tooltipBorder,
+          textStyle: { color: theme.tooltipText },
+          extraCssText: `box-shadow: ${theme.tooltipShadow};`
+        },
+        legend: { textStyle: { color: theme.text }, top: 0 },
+        radar: {
+          indicator: [
+            { name: '边际网络效应与抽税力', max: 100 },
+            { name: '资本防稀释与抗填平能力', max: 100 },
+            { name: '法定签名与合规护城河', max: 100 },
+            { name: '真实业务闭环靶场壁垒', max: 100 },
+            { name: '客户切换成本与黏性', max: 100 },
+            { name: '长周期暴利持续时间', max: 100 }
+          ],
+          shape: 'circle',
+          splitArea: {
+            areaStyle: {
+              color: theme.radarArea
+            }
+          },
+          axisLine: { lineStyle: { color: theme.axisLine } },
+          splitLine: { lineStyle: { color: theme.splitLine } },
+          axisName: { color: theme.radarLabel, fontSize: 11.5 }
+        },
+        series: [{
+          name: '制高点特征透视',
+          type: 'radar',
+          data: [
+            {
+              value: [25, 20, 15, 30, 25, 30],
+              name: '伪制高点 (燃气轮机/芯片租赁/套壳SaaS)',
+              itemStyle: { color: '#e11d48' },
+              areaStyle: { color: 'rgba(225, 29, 72, 0.22)' }
+            },
+            {
+              value: [95, 90, 85, 92, 95, 98],
+              name: '真制高点 (分发入口/清算轨道/专有RL靶场)',
+              itemStyle: { color: '#059669' },
+              areaStyle: { color: 'rgba(5, 150, 105, 0.28)' }
+            }
+          ]
+        }]
+      };
+      chart.setOption(option);
+    }
+
+    function initChartSimulation() {
+      const dom = document.getElementById('chart-sim');
+      if (!dom) return;
+      const chart = echarts.init(dom);
+      chartInstances.simulation = chart;
+      renderSimulationChart();
+    }
+
+    function updateSimulation() {
+      const def = parseInt(document.getElementById('slider-deflation').value);
+      const cap = parseInt(document.getElementById('slider-capex').value);
+      const bpo = parseInt(document.getElementById('slider-bpo').value);
+
+      document.getElementById('val-deflation').innerText = `-${def}% / 季`;
+      document.getElementById('val-capex').innerText = `+${cap}% / 年`;
+      document.getElementById('val-bpo').innerText = `${bpo}% 替代`;
+
+      const margin = Math.max(2, (45 - (def * 0.75))).toFixed(1);
+      const gap = Math.round(250 + (cap * 3.0));
+      const layoff = Math.round(bpo * 0.85);
+
+      document.getElementById('res-margin').innerText = margin + '%';
+      document.getElementById('res-gap').innerText = `$${gap} 亿美元`;
+      document.getElementById('res-layoff').innerText = layoff + '%';
+
+      renderSimulationChart(def, cap, bpo);
+    }
+
+    function renderSimulationChart(def = 47, cap = 70, bpo = 45) {
+      if (!chartInstances.simulation) return;
+      const theme = getChartTheme();
+
+      const years = ['2024', '2025', '2026', '2027', '2028', '2029', '2030'];
+      const marginSeries = [35, 26, 18, Math.max(3, 14 - def*0.1), Math.max(2, 8 - def*0.08), 5, 4];
+      const gapSeries = [120, 240, 390, Math.round(cap * 6.5), Math.round(cap * 6.0), Math.round(cap * 4.5), 200];
+
+      const option = {
+        tooltip: { 
+          trigger: 'axis',
+          backgroundColor: theme.tooltipBg,
+          borderColor: theme.tooltipBorder,
+          textStyle: { color: theme.tooltipText },
+          extraCssText: `box-shadow: ${theme.tooltipShadow};`
+        },
+        legend: { textStyle: { color: theme.text }, top: 0 },
+        grid: { left: '3%', right: '5%', bottom: '5%', top: '35px', containLabel: true },
+        xAxis: { 
+          type: 'category', 
+          data: years, 
+          axisLabel: { color: theme.text },
+          axisLine: { lineStyle: { color: theme.axisLine } }
+        },
+        yAxis: [
+          {
+            type: 'value',
+            name: '模型层平均毛利率 (%)',
+            nameTextStyle: { color: '#e11d48' },
+            position: 'left',
+            axisLabel: { color: '#e11d48', formatter: '{value}%' },
+            splitLine: { lineStyle: { color: theme.splitLine } }
+          },
+          {
+            type: 'value',
+            name: '累计自由现金流缺口 ($B)',
+            nameTextStyle: { color: '#0284c7' },
+            position: 'right',
+            axisLabel: { color: '#0284c7', formatter: '${value}B' },
+            splitLine: { show: false }
+          }
+        ],
+        series: [
+          {
+            name: '模型层平均毛利率',
+            type: 'line',
+            yAxisIndex: 0,
+            data: marginSeries,
+            smooth: true,
+            lineStyle: { width: 3, color: '#e11d48' },
+            itemStyle: { color: '#e11d48' }
+          },
+          {
+            name: '云巨头现金流缺口',
+            type: 'bar',
+            yAxisIndex: 1,
+            data: gapSeries,
+            itemStyle: { color: '#0284c7', borderRadius: [4, 4, 0, 0] }
+          }
+        ]
+      };
+      chartInstances.simulation.setOption(option);
+    }
+  </script>
+</body>
+</html>
+"""
+
+with open(output_file, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"Generated successfully: {output_file} (Bytes: {len(html_content)})")

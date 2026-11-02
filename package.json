@@ -1,0 +1,30 @@
+{
+  "name": "ai-commanding-heights-analysis",
+  "version": "2.6.0",
+  "description": "Executive Consulting Slide Deck and Empirical Cross-Verification on Foundation Model Commoditization and Economic Rent",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 server.py",
+    "serve": "python3 -m http.server 8080",
+    "data:build": "python3 scripts/build_data_assets.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zubin-li/ai-commanding-heights-analysis.git"
+  },
+  "keywords": [
+    "ai",
+    "commanding-heights",
+    "consulting-deck",
+    "echarts",
+    "fact-check",
+    "economic-rent",
+    "commoditization"
+  ],
+  "author": "Zubin Li & Antigravity Research Group",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zubin-li/ai-commanding-heights-analysis/issues"
+  },
+  "homepage": "https://zubin-li.github.io/ai-commanding-heights-analysis/"
+}

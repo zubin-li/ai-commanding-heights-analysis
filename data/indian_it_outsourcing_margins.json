@@ -1,0 +1,38 @@
+[
+  {
+    "fy": "FY21",
+    "tcs_operating_margin_pct": 25.9,
+    "infosys_margin_pct": 24.5,
+    "industry_net_addition_k": 450
+  },
+  {
+    "fy": "FY22",
+    "tcs_operating_margin_pct": 25.3,
+    "infosys_margin_pct": 23.0,
+    "industry_net_addition_k": 500
+  },
+  {
+    "fy": "FY23",
+    "tcs_operating_margin_pct": 24.1,
+    "infosys_margin_pct": 21.0,
+    "industry_net_addition_k": 290
+  },
+  {
+    "fy": "FY24",
+    "tcs_operating_margin_pct": 24.6,
+    "infosys_margin_pct": 20.7,
+    "industry_net_addition_k": 60
+  },
+  {
+    "fy": "FY25E",
+    "tcs_operating_margin_pct": 23.8,
+    "infosys_margin_pct": 20.1,
+    "industry_net_addition_k": -25
+  },
+  {
+    "fy": "FY26E",
+    "tcs_operating_margin_pct": 22.4,
+    "infosys_margin_pct": 19.2,
+    "industry_net_addition_k": -65
+  }
+]

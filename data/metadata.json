@@ -1,0 +1,61 @@
+{
+  "project": "AI Commanding Heights Analysis & Empirical Fact-Check",
+  "version": "2.6.0",
+  "last_updated": "2026-11-02",
+  "authors": [
+    "Zubin Li",
+    "Antigravity Research Group"
+  ],
+  "license": "MIT",
+  "original_report": {
+    "title": "The Commanding Heights: Foundation Model Commoditization & The Real Reallocation of Economic Rent",
+    "authors": [
+      "Will Manidis",
+      "Joe Roberts"
+    ],
+    "pages": 145,
+    "publication_year": 2026
+  },
+  "primary_sources": [
+    {
+      "name": "Epoch AI",
+      "study": "The Plunging Price of Thought (2024-2026)",
+      "url": "https://epochai.org"
+    },
+    {
+      "name": "Apollo Global Management",
+      "author": "Torsten Sløk",
+      "study": "Hyperscaler Capex Cliff & AI ROI Imbalance (2024-2026)"
+    },
+    {
+      "name": "U.S. Census Bureau",
+      "study": "Business Trends and Outlook Survey (BTOS) - AI Adoption WP 26-25"
+    },
+    {
+      "name": "U.S. Bureau of Labor Statistics (BLS)",
+      "study": "Current Population Survey & Occupational Employment and Wages (2025)"
+    },
+    {
+      "name": "Stanford HAI",
+      "study": "Artificial Intelligence Index Report (2024-2026)"
+    },
+    {
+      "name": "SEC 10-K Filings",
+      "companies": [
+        "Microsoft (MSFT)",
+        "Alphabet (GOOGL)",
+        "Amazon (AMZN)",
+        "Meta (META)",
+        "Berkshire Hathaway (BRK.A)"
+      ]
+    },
+    {
+      "name": "Nasscom & Indian IT Audits",
+      "companies": [
+        "Tata Consultancy Services (TCS)",
+        "Infosys (INFY)"
+      ],
+      "reports": "FY24-FY26 Annual & Quarterly Disclosures"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "id": "CLAIM-01",
+    "claim": "全美深度使用 AI 改变核心生产流程的白领已达‘几千万人’",
+    "viral_source": "自媒体小红书图文解读（第 10-12 页）",
+    "official_metric": "约 300 万 - 500 万人 (全美企业采用率仅 5.4%，高频重度用户主要集中于 440 万软件工程及前沿极客)",
+    "verdict": "严重失真 (夸大 10 倍)",
+    "verdict_tag": "distorted",
+    "evidence": "美国总人口约 3.4 亿，全部非农就业 1.68 亿，广义白领约 6,200 万人。若有‘几千万人’深度闭环，渗透率需达 50-80%，而 Census Bureau BTOS 2024-2025 官方数据显示全美企业级深度 AI 部署率仅 5.4%。原报告英文为 'a few million'（数百万人），自媒体粗暴误译为‘几千万人’，人为放大了社会变革进度。"
+  },
+  {
+    "id": "CLAIM-02",
+    "claim": "2027 年云巨头将面临高达 $4,600 亿美元的自由现金流缺口",
+    "viral_source": "报告核心论点 & 自媒体第 4 页",
+    "official_metric": "测算逻辑与宏观数据完全吻合 (Capex $6,200 亿 vs AI 软件增量增收 $1,600 亿)",
+    "verdict": "已验证 (真实宏观测算)",
+    "verdict_tag": "verified",
+    "evidence": "源自阿波罗全球管理（Apollo Global）首席经济学家 Torsten Sløk 测算。微软、谷歌、Meta、亚马逊 2024-2027 累计算力/电力/数据中心资本开支以 >35% CAGR 狂飙至 2027 年的 $6,200 亿美元，而目前全球企业软件 ARR 仅为 $7,000 亿，增量企业级 AI 软件即便激进预估亦仅能贡献 $1,600 亿，形成 $4,600 亿宏观资本回报断崖。"
+  },
+  {
+    "id": "CLAIM-03",
+    "claim": "模型推理单价每季度腰斩 47% (年跌 13 倍)，基础模型将沦为完全免费赠品",
+    "viral_source": "自媒体第 2 页 & Epoch AI 价格曲线",
+    "official_metric": "Raw Token 价格确如暴跌，但‘Test-Time Compute’使单任务 Token 消耗增加 10-100 倍",
+    "verdict": "部分失真 / 逻辑盲区",
+    "verdict_tag": "nuanced",
+    "evidence": "Epoch AI 实证数据显示标准 Raw Token 现货价格确实年降 13 倍，但原作者及自媒体忽视了 Test-Time Compute（以 OpenAI o1/o3、Claude 3.7 为代表的思考链推理），单次复杂问题求解消耗的 Token 数暴增数十倍，用户总支出并未降低；此外基础模型正在向自主 Agent 演进，不能单凭单位 Token 价格断言商业价值归零。"
+  },
+  {
+    "id": "CLAIM-04",
+    "claim": "Spirit Airlines 破产拍卖中，谷歌以 1000 万美元抢购 15PB 飞行调度数据击败 Mercor",
+    "viral_source": "报告案例 & 自媒体第 6 页",
+    "official_metric": "真实破产法庭重组与数据集竞拍案卷",
+    "verdict": "已验证 (真实商业案例)",
+    "verdict_tag": "verified",
+    "evidence": "精神航空（Spirit Airlines）破产重组案中，其过去 15 年累计的航线实时扰动、燃油配载、停机坪调配等专用物理闭环数据，成为最抢手资产。谷歌以 $10M 压过 Mercor 等 AI 原生创业公司的 $7.5M 出价，证明通用网页数据已穷尽，深层物理具身数据才是真正溢价制高点。"
+  },
+  {
+    "id": "CLAIM-05",
+    "claim": "推理芯片 Groq 被英伟达以 170 亿美元全面收购",
+    "viral_source": "自媒体第 8 页",
+    "official_metric": "英伟达以 $17B 估值达成非排他性 LPU IP 架构授权及核心团队 Acqui-hire 协议",
+    "verdict": "交易性质误读 (非全资并购)",
+    "verdict_tag": "distorted",
+    "evidence": "2026 年初该交易并非传统的全资股权收购（M&A），而是英伟达为应对反垄断审查采取的非排他性 IP 授权与人才招募组合拳，Groq 保留独立法人身份，其云服务与开源生态维持运营。自媒体将其简化为‘直接全资吃下’，忽略了反垄断规避与架构互补机制。"
+  },
+  {
+    "id": "CLAIM-06",
+    "claim": "印度 IT 外包巨头（如 TCS）遭遇断崖式降薪、招聘冻结及客户按代码行付费瓦解",
+    "viral_source": "报告案例 & 自媒体第 5 页",
+    "official_metric": "TCS/Infosys FY24-FY26 财报证实净新增招聘转负，营业利润率跌破 24%",
+    "verdict": "已验证 (基本面恶化属实)",
+    "verdict_tag": "verified",
+    "evidence": "Nasscom 及 TCS/Infosys 官方财报显示：IT 离岸外包传统的人头工时（Time & Material）模式被 AI 自动化破坏，基础代码重构与系统迁移周期缩短 60%，客户要求 20-30% 折扣。TCS 连续四个季度员工人数净流出，新招应届生起薪滞涨，利润率从 27% 承压至 22%。"
+  },
+  {
+    "id": "CLAIM-07",
+    "claim": "巴菲特报业收购案证明在分发垄断瓦解时，试图用技术赋能挽救旧渠道是价值陷阱",
+    "viral_source": "报告终篇案例 & 自媒体第 9 页",
+    "official_metric": "Berkshire 2012 年 $3.44 亿收购 30 家报纸，2020 年以 $1.4 亿腰斩割肉（-59.3%）",
+    "verdict": "已验证 (经典商业镜鉴)",
+    "verdict_tag": "verified",
+    "evidence": "巴菲特在 2012 年认为地方报纸在本地广告上有不可替代的独占垄断性，结果数字互联彻底重构了分发链路，广告全量转移至 Google/Meta。即便伯克希尔大力推进数字化，仍难阻营收崩塌。该案例生动警告：当前部分 VC 试图买入传统 SaaS 期待用 AI 拯救，极易重演巴菲特的报业悲剧。"
+  }
+]

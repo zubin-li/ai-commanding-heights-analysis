@@ -1,0 +1,44 @@
+[
+  {
+    "period": "2020-Q1",
+    "token_price_index": 100.0,
+    "frontier_training_cost_m": 4.6,
+    "benchmark_model": "GPT-3"
+  },
+  {
+    "period": "2021-Q1",
+    "token_price_index": 52.0,
+    "frontier_training_cost_m": 8.0,
+    "benchmark_model": "Megatron-Turing"
+  },
+  {
+    "period": "2022-Q1",
+    "token_price_index": 26.5,
+    "frontier_training_cost_m": 15.0,
+    "benchmark_model": "Chinchilla / PaLM"
+  },
+  {
+    "period": "2023-Q1",
+    "token_price_index": 12.8,
+    "frontier_training_cost_m": 80.0,
+    "benchmark_model": "GPT-4 / Claude 1"
+  },
+  {
+    "period": "2024-Q1",
+    "token_price_index": 4.2,
+    "frontier_training_cost_m": 250.0,
+    "benchmark_model": "GPT-4o / Claude 3.5"
+  },
+  {
+    "period": "2025-Q1",
+    "token_price_index": 1.1,
+    "frontier_training_cost_m": 600.0,
+    "benchmark_model": "o1 / Gemini 2.0"
+  },
+  {
+    "period": "2026-Q1",
+    "token_price_index": 0.2,
+    "frontier_training_cost_m": 1400.0,
+    "benchmark_model": "o3 / Claude 3.7 / Frontier 2026"
+  }
+]

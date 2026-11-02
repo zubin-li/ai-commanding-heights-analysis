@@ -1,0 +1,38 @@
+[
+  {
+    "year": "2022",
+    "hyperscaler_capex_b": 145,
+    "ai_software_arr_b": 12,
+    "gap_b": 133
+  },
+  {
+    "year": "2023",
+    "hyperscaler_capex_b": 175,
+    "ai_software_arr_b": 28,
+    "gap_b": 147
+  },
+  {
+    "year": "2024",
+    "hyperscaler_capex_b": 240,
+    "ai_software_arr_b": 55,
+    "gap_b": 185
+  },
+  {
+    "year": "2025E",
+    "hyperscaler_capex_b": 350,
+    "ai_software_arr_b": 90,
+    "gap_b": 260
+  },
+  {
+    "year": "2026E",
+    "hyperscaler_capex_b": 480,
+    "ai_software_arr_b": 125,
+    "gap_b": 355
+  },
+  {
+    "year": "2027E",
+    "hyperscaler_capex_b": 620,
+    "ai_software_arr_b": 160,
+    "gap_b": 460
+  }
+]

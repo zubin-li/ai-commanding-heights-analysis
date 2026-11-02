@@ -1,0 +1,32 @@
+[
+  {
+    "tech": "蒸汽机与纺织 (1760-1840)",
+    "inventor_share": 9,
+    "consumer_share": 91,
+    "winner": "棉纺工厂主 / 铁路运营商 / 全球消费者"
+  },
+  {
+    "tech": "电报与远距通信 (1840-1900)",
+    "inventor_share": 11,
+    "consumer_share": 89,
+    "winner": "大宗商品交易商 / 跨国贸易帝国"
+  },
+  {
+    "tech": "PC 与硬件制造 (1980-2005)",
+    "inventor_share": 6,
+    "consumer_share": 94,
+    "winner": "软件平台 (微软) / 芯片制造 (英特尔)"
+  },
+  {
+    "tech": "互联网基础设施与光纤 (1995-2015)",
+    "inventor_share": 7,
+    "consumer_share": 93,
+    "winner": "应用分发与流量中枢 (Google/Amazon)"
+  },
+  {
+    "tech": "通用大模型与基础智能 (2022-2027E)",
+    "inventor_share": 6,
+    "consumer_share": 94,
+    "winner": "存量系统记录者 / 专用物理数据源 / 行业共生体"
+  }
+]
