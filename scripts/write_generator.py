@@ -1793,7 +1793,7 @@ html_content = """<!DOCTYPE html>
 
         <div class="slide-footer">
           <div><span class="source-tag">Presentation Concluded • Executive Consulting Deliverable</span></div>
-          <div>Antigravity Strategic Advisory 2026</div>
+          <div>Zubin Li • Built with Google Antigravity • 2026</div>
         </div>
       </div>
     </article>

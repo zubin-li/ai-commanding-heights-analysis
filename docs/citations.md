@@ -39,12 +39,12 @@
 ## 📖 标准引用格式 (Citation Formats)
 
 ### APA 7th Edition
-> Li, Z., & Antigravity. (2026). *The Commanding Heights of AI: Foundation Model Commoditization, Empirical Fact-Check, and Strategic Reallocation of Economic Rent*. AI Commanding Heights Intelligence Project. https://zubin-li.github.io/ai-commanding-heights-analysis/
+> Li, Z. (2026). *The Commanding Heights of AI: Foundation Model Commoditization, Empirical Fact-Check, and Strategic Reallocation of Economic Rent*. AI Commanding Heights Intelligence Project. https://zubin-li.github.io/ai-commanding-heights-analysis/
 
 ### BibTeX
 ```bibtex
 @misc{li2026commandingheights,
-  author       = {Li, Zubin and Antigravity},
+  author       = {Li, Zubin},
   title        = {{The Commanding Heights of AI: Foundation Model Commoditization, Empirical Fact-Check, and Strategic Reallocation of Economic Rent}},
   year         = {2026},
   howpublished = {\url{https://zubin-li.github.io/ai-commanding-heights-analysis/}},
@@ -53,17 +53,18 @@
 ```
 
 ### Chicago 17th Edition
-> Li, Zubin, and Antigravity. 2026. “The Commanding Heights of AI: Foundation Model Commoditization, Empirical Fact-Check, and Strategic Reallocation of Economic Rent.” AI Commanding Heights Intelligence Project. https://zubin-li.github.io/ai-commanding-heights-analysis/.
+> Li, Zubin. 2026. “The Commanding Heights of AI: Foundation Model Commoditization, Empirical Fact-Check, and Strategic Reallocation of Economic Rent.” AI Commanding Heights Intelligence Project. https://zubin-li.github.io/ai-commanding-heights-analysis/.
 
 ---
 
 ## 👥 项目贡献者 (Contributors)
 
 * **Zubin Li** ([@zubin-li](https://github.com/zubin-li)) — 项目发起人、总体研究与数据架构设计
-* **Antigravity** ([@antigravity](https://github.com/antigravity)) — 自主 AI Agent 全栈协同架构与自动化工程交付
+
+开发工具：本项目借助 [Google Antigravity](https://antigravity.google/) 完成 AI 辅助研究、工程实现与自动化质量审计；最终研究判断与项目责任归属于 Zubin Li。
 
 ---
 
 ## ⚖️ 许可与免责声明 (License & Disclaimer)
 * **代码与可视化工程**：遵循 MIT 开源许可证。
-* **数据与研究结论**：供学术研究、产业研判与战略决策参考，不构成直接的证券买卖要约或金融投资建议。署名出处：`© 2026 Zubin Li & Antigravity`。
+* **数据与研究结论**：供学术研究、产业研判与战略决策参考，不构成直接的证券买卖要约或金融投资建议。署名出处：`© 2026 Zubin Li`。

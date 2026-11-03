@@ -178,12 +178,12 @@ ai-commanding-heights-analysis/
 ## 📚 Academic Citation Standard
 
 ### APA 7th Edition
-> Li, Z., & Antigravity. (2026). *The Commanding Heights of AI: Foundation Model Commoditization, Empirical Fact-Check, and Strategic Reallocation of Economic Rent*. AI Commanding Heights Intelligence Project. https://zubin-li.github.io/ai-commanding-heights-analysis/
+> Li, Z. (2026). *The Commanding Heights of AI: Foundation Model Commoditization, Empirical Fact-Check, and Strategic Reallocation of Economic Rent*. AI Commanding Heights Intelligence Project. https://zubin-li.github.io/ai-commanding-heights-analysis/
 
 ### BibTeX
 ```bibtex
 @misc{li2026commandingheights,
-  author       = {Li, Zubin and Antigravity},
+  author       = {Li, Zubin},
   title        = {{The Commanding Heights of AI: Foundation Model Commoditization, Empirical Fact-Check, and Strategic Reallocation of Economic Rent}},
   year         = {2026},
   howpublished = {\url{https://zubin-li.github.io/ai-commanding-heights-analysis/}},
@@ -196,9 +196,10 @@ ai-commanding-heights-analysis/
 ## 👥 Project Contributors
 
 * **Zubin Li** ([@zubin-li](https://github.com/zubin-li)) — Project Lead, Data Architecture & Strategic Whitepaper Author
-* **Antigravity** ([@antigravity](https://github.com/antigravity)) — Autonomous AI Agent Full-Stack Architecture, Interactive Front-End & Quality Audit Pipeline
+
+Development tool: Built with assistance from [Google Antigravity](https://antigravity.google/) for AI-assisted research, engineering, and quality auditing. Final research judgment and project responsibility remain with Zubin Li.
 
 ---
 
 ## ⚖️ License & Attribution
-Distributed under the **MIT License**. For citations in academic or commercial research, please credit: `© 2026 Zubin Li & Antigravity`.
+Distributed under the **MIT License**. For citations in academic or commercial research, please credit: `© 2026 Zubin Li`.
