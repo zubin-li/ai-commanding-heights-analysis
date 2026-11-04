@@ -10,6 +10,8 @@ authors:
   - family-names: "Li"
     given-names: "Zubin"
     website: "https://github.com/zubin-li"
+  - name: "Antigravity"
+    website: "https://github.com/antigravity"
 keywords:
   - "Artificial Intelligence"
   - "Foundation Models"
@@ -26,5 +28,6 @@ preferred-citation:
   authors:
     - family-names: "Li"
       given-names: "Zubin"
+    - name: "Antigravity"
   year: 2026
   url: "https://zubin-li.github.io/ai-commanding-heights-analysis/"
