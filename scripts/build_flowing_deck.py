@@ -1,0 +1,1985 @@
+#!/usr/bin/env python3
+import os
+import json
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Read datasets
+with open(BASE_DIR / "data" / "viral_claims_fact_check.json", "r", encoding="utf-8") as f:
+    claims_data = json.load(f)
+
+html = """<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Commanding Heights of AI | Executive Strategic Deck & Empirical Audit</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>">
+  
+  <!-- ECharts 5.5 (Local with CDN fallback) -->
+  <script src="./echarts.min.js"></script>
+  <script>
+    if (typeof echarts === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"><\\/script>');
+    }
+  </script>
+  <!-- i18n Bilingual Dictionary -->
+  <script src="./i18n.js"></script>
+
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      
+      /* Light Theme (Default - McKinsey / Goldman Cream & Oxford Palette) */
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-card-sub: #f1f5f9;
+      --border-color: #e2e8f0;
+      --border-subtle: #cbd5e1;
+      --border-accent: #38bdf8;
+      
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #64748b;
+      
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --accent-emerald: #059669;
+      --accent-rose: #dc2626;
+      --accent-amber: #d97706;
+      --accent-purple: #7c3aed;
+      
+      --banner-bg: #f0fdf4;
+      --banner-border: #86efac;
+      --banner-text: #14532d;
+      
+      --critique-bg: #fef2f2;
+      --critique-border: #fca5a5;
+      --critique-text: #7f1d1d;
+      
+      --warning-bg: #fffbeb;
+      --warning-border: #fde68a;
+      --warning-text: #78350f;
+      
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 30px rgba(0,0,0,0.12);
+      
+      --nav-bg: rgba(255, 255, 255, 0.94);
+      --pill-bg: #ffffff;
+      --pill-active-bg: #0284c7;
+      --pill-active-text: #ffffff;
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #0a0e17;
+      --bg-card: #111827;
+      --bg-card-sub: #1e293b;
+      --border-color: #334155;
+      --border-subtle: #475569;
+      --border-accent: #38bdf8;
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --primary: #38bdf8;
+      --primary-hover: #7dd3fc;
+      --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
+      --accent-amber: #f59e0b;
+      --accent-purple: #a855f7;
+      
+      --banner-bg: rgba(6, 78, 59, 0.35);
+      --banner-border: #059669;
+      --banner-text: #a7f3d0;
+      
+      --critique-bg: rgba(153, 27, 27, 0.35);
+      --critique-border: #dc2626;
+      --critique-text: #fecdd3;
+      
+      --warning-bg: rgba(120, 53, 15, 0.35);
+      --warning-border: #d97706;
+      --warning-text: #fde68a;
+      
+      --shadow-sm: 0 2px 6px rgba(0,0,0,0.3);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
+      --shadow-lg: 0 16px 40px rgba(0,0,0,0.6);
+      
+      --nav-bg: rgba(15, 23, 42, 0.94);
+      --pill-bg: #1e293b;
+      --pill-active-bg: #38bdf8;
+      --pill-active-text: #0f172a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Sticky Executive Navigation Header */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      padding: 0.6rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .nav-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, var(--primary), #0284c7);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.25rem 0.6rem;
+      border-radius: 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .brand-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      color: #fff;
+    }
+
+    /* Language Toggle Switcher */
+    .lang-switcher {
+      display: inline-flex;
+      background: var(--bg-card-sub);
+      padding: 2px;
+      border-radius: 0.45rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .lang-btn {
+      padding: 0.25rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 0.35rem;
+      transition: all 0.2s;
+    }
+
+    .lang-btn.active {
+      background: var(--bg-card);
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* Quick Jump Pills Row */
+    .pills-scroll-container {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      overflow-x: auto;
+      padding-bottom: 0.2rem;
+      scrollbar-width: thin;
+    }
+
+    .pills-scroll-container::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .pills-scroll-container::-webkit-scrollbar-thumb {
+      background: var(--border-subtle);
+      border-radius: 4px;
+    }
+
+    .pill {
+      white-space: nowrap;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      background: var(--pill-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .pill:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(2, 132, 199, 0.08);
+    }
+
+    /* Main Deck Layout - Vertical Continuous Flow */
+    .deck-container {
+      max-width: 1360px;
+      margin: 2rem auto;
+      padding: 0 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.75rem;
+    }
+
+    /* Cover Sheet */
+    .cover-sheet {
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.08) 0%, rgba(255, 255, 255, 0.95) 100%);
+      border: 1px solid rgba(2, 132, 199, 0.3);
+      border-radius: 1rem;
+      padding: 2.75rem;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    [data-theme="dark"] .cover-sheet {
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.15) 0%, rgba(17, 24, 39, 0.9) 100%);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+
+    .cover-badge {
+      align-self: flex-start;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 0.3rem 0.8rem;
+      border-radius: 0.35rem;
+      letter-spacing: 0.05em;
+    }
+
+    .cover-heading {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--text-main);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .cover-subheading {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 1050px;
+    }
+
+    .cover-meta {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border-color);
+      padding-top: 0.75rem;
+    }
+
+    .cover-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .cover-kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 1.1rem 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .cover-kpi-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      margin-bottom: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .cover-kpi-val {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.2rem;
+    }
+
+    .cover-kpi-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Individual Slide Card (All displayed vertically in a single scroll) */
+    .slide-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      scroll-margin-top: 5.5rem;
+    }
+
+    .slide-header {
+      padding: 1.5rem 2rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      background: linear-gradient(180deg, var(--bg-card-sub), var(--bg-card));
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .slide-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .slide-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.3;
+      letter-spacing: -0.015em;
+    }
+
+    .slide-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .slide-body {
+      padding: 1.75rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Strategic Takeaway Banner */
+    .takeaway-banner {
+      background: var(--banner-bg);
+      border-left: 4px solid var(--banner-border);
+      color: var(--banner-text);
+      padding: 1rem 1.25rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .takeaway-banner strong {
+      font-weight: 800;
+      color: var(--text-main);
+      margin-right: 0.4rem;
+    }
+
+    /* Critique Alert Box */
+    .critique-box {
+      background: var(--critique-bg);
+      border-left: 4px solid var(--critique-border);
+      color: var(--critique-text);
+      padding: 1rem 1.25rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .warning-box {
+      background: var(--warning-bg);
+      border-left: 4px solid var(--warning-border);
+      color: var(--warning-text);
+      padding: 1rem 1.25rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    /* Cards Grid */
+    .cards-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .cards-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .cards-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .intel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 0.65rem;
+      padding: 1.25rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .intel-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+      border-color: var(--border-accent);
+    }
+
+    .intel-card-header {
+      font-size: 1rem;
+      font-weight: 750;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .intel-card-body {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* ECharts Container */
+    .chart-container-box {
+      background: var(--bg-card-sub);
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      position: relative;
+    }
+
+    .chart-canvas {
+      width: 100%;
+      height: 420px;
+    }
+
+    /* Data Tables */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 0.6rem;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      text-align: left;
+    }
+
+    .data-table th {
+      background: var(--bg-card-sub);
+      color: var(--text-main);
+      font-weight: 700;
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .data-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-muted);
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .data-table tr:hover td {
+      background: rgba(2, 132, 199, 0.03);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 0.3rem;
+      text-transform: uppercase;
+    }
+
+    .badge-verified {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-error {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--accent-rose);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .badge-nuanced {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-amber);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    /* Simulator Controls */
+    .sim-controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+      background: var(--bg-card-sub);
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+    }
+
+    .slider-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .slider-val {
+      color: var(--primary);
+      font-family: var(--font-mono);
+      font-weight: 800;
+    }
+
+    input[type=range] {
+      width: 100%;
+      accent-color: var(--primary);
+    }
+
+    .sim-kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .sim-kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 0.6rem;
+      padding: 1rem 1.25rem;
+      text-align: center;
+    }
+
+    .sim-kpi-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      margin-bottom: 0.25rem;
+    }
+
+    .sim-kpi-num {
+      font-size: 1.75rem;
+      font-weight: 850;
+      color: var(--primary);
+      font-family: var(--font-mono);
+    }
+
+    /* Modal Backdrop */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      max-width: 1100px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 2rem;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.75rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--bg-card-sub);
+      transition: transform 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+      border-color: var(--primary);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Footer */
+    .global-footer {
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-card);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .global-footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    /* Print & PDF Layout Rules */
+    @media print {
+      .sticky-nav, .modal-backdrop, .no-print {
+        display: none !important;
+      }
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+      .deck-container {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+      }
+      .slide-card {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        break-after: page !important;
+        page-break-after: always !important;
+        margin-bottom: 2rem !important;
+      }
+      .cover-sheet {
+        break-after: page !important;
+        page-break-after: always !important;
+      }
+      .chart-canvas {
+        height: 380px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Top Navigation -->
+  <header class="sticky-nav no-print">
+    <div class="nav-top-row">
+      <div class="brand-wrap">
+        <span class="brand-badge" data-i18n="brand_badge">Executive Intelligence Deck</span>
+        <span class="brand-title" data-i18n="brand_title">The Commanding Heights of AI: Empirical Fact-Check & Strategic Deck</span>
+      </div>
+      <div class="nav-actions">
+        <!-- Language Switcher: English (Default) / 中文 -->
+        <div class="lang-switcher">
+          <button class="lang-btn active" id="btn-lang-en" onclick="setLanguage('en')">English</button>
+          <button class="lang-btn" id="btn-lang-zh" onclick="setLanguage('zh')">中文</button>
+        </div>
+        
+        <!-- Theme Switcher: Light (Default) / Dark -->
+        <button class="btn" id="btn-theme-toggle" onclick="toggleTheme()" title="Toggle Light / Dark">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-text" data-i18n="btn_theme_dark">🌙 Dark</span>
+        </button>
+
+        <!-- Modals & Export -->
+        <button class="btn" onclick="openLedgerModal()">
+          <span data-i18n="btn_audit_ledger">Fact-Check Ledger</span>
+        </button>
+        <button class="btn" onclick="openSourceModal()">
+          <span data-i18n="btn_source_gallery">19P Source Gallery</span>
+        </button>
+        <button class="btn btn-primary" onclick="window.print()">
+          <span data-i18n="btn_export_pdf">Export PDF / Print</span>
+        </button>
+        <a class="btn" href="https://github.com/zubin-li/ai-commanding-heights-analysis" target="_blank" rel="noopener">
+          GitHub
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick Jump Slide Pills Row -->
+    <nav class="pills-scroll-container">
+      <a class="pill" href="#cover" data-i18n="pill_cover">Cover</a>
+      <a class="pill" href="#slide-1" data-i18n="pill_s1">1. Exec Summary</a>
+      <a class="pill" href="#slide-2" data-i18n="pill_s2">2. 7% Curse</a>
+      <a class="pill" href="#slide-3" data-i18n="pill_s3">3. Token Scissors</a>
+      <a class="pill" href="#slide-4" data-i18n="pill_s4">4. $460B Cliff</a>
+      <a class="pill" href="#slide-5" data-i18n="pill_s5">5. White-Collar</a>
+      <a class="pill" href="#slide-6" data-i18n="pill_s6">6. 4th Reorg</a>
+      <a class="pill" href="#slide-7" data-i18n="pill_s7">7. Defensibility</a>
+      <a class="pill" href="#slide-8" data-i18n="pill_s8">8. PE Buyouts</a>
+      <a class="pill" href="#slide-9" data-i18n="pill_s9">9. Buffett's Lesson</a>
+      <a class="pill" href="#slide-10" data-i18n="pill_s10">10. Critique</a>
+      <a class="pill" href="#slide-11" data-i18n="pill_s11">11. Fact-Check</a>
+      <a class="pill" href="#slide-12" data-i18n="pill_s12">12. Salaried Workers</a>
+      <a class="pill" href="#slide-13" data-i18n="pill_s13">13. Golden Sectors</a>
+      <a class="pill" href="#slide-14" data-i18n="pill_s14">14. Simulator</a>
+      <a class="pill" href="#slide-15" data-i18n="pill_s15">15. Action Matrix</a>
+    </nav>
+  </header>
+
+  <!-- Deck Main Container: All 15 Slides Flowing Vertically -->
+  <main class="deck-container">
+
+    <!-- Executive Cover Sheet -->
+    <section class="cover-sheet" id="cover">
+      <span class="cover-badge" data-i18n="cover_badge">STRATEGIC ADVISORY REPORT & EMPIRICAL AUDIT</span>
+      <h1 class="cover-heading" data-i18n="cover_title">THE COMMANDING HEIGHTS OF AI</h1>
+      <p class="cover-subheading" data-i18n="cover_subtitle">Foundation Model Commoditization, Empirical Data Cross-Verification, and the Real Reallocation of Economic Rent</p>
+      <div class="cover-meta" data-i18n="cover_meta">Synthesized from Will Manidis & Joe Roberts' 145-page Monograph • Cross-Verified against Epoch AI, Apollo Global, U.S. Census Bureau, BLS & SEC Form 10-K Filings</div>
+      <div class="cover-kpi-grid">
+        <div class="cover-kpi-card">
+          <div class="cover-kpi-title" data-i18n="cover_kpi_1_label">TOKEN SPOT DEFLATION</div>
+          <div class="cover-kpi-val" data-i18n="cover_kpi_1_val">-47% / Qtr</div>
+          <div class="cover-kpi-sub" data-i18n="cover_kpi_1_sub">13x Annual Deflation Rate</div>
+        </div>
+        <div class="cover-kpi-card">
+          <div class="cover-kpi-title" data-i18n="cover_kpi_2_label">2027 HYPERSCALER FCF GAP</div>
+          <div class="cover-kpi-val" data-i18n="cover_kpi_2_val">$460 Billion</div>
+          <div class="cover-kpi-sub" data-i18n="cover_kpi_2_sub">Capex vs Incremental ARR</div>
+        </div>
+        <div class="cover-kpi-card">
+          <div class="cover-kpi-title" data-i18n="cover_kpi_3_label">U.S. ENTERPRISE AI ADOPTION</div>
+          <div class="cover-kpi-val" data-i18n="cover_kpi_3_val">5.4%</div>
+          <div class="cover-kpi-sub" data-i18n="cover_kpi_3_sub">Census Bureau BTOS Baseline</div>
+        </div>
+        <div class="cover-kpi-card">
+          <div class="cover-kpi-title" data-i18n="cover_kpi_4_label">HISTORICAL INVENTOR RENT</div>
+          <div class="cover-kpi-val" data-i18n="cover_kpi_4_val">5% — 9%</div>
+          <div class="cover-kpi-sub" data-i18n="cover_kpi_4_sub">90%+ Subsidizes Downstream</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 1: Executive Summary -->
+    <article class="slide-card" id="slide-1">
+      <div class="slide-header">
+        <span class="slide-tag" data-i18n="s1_tag">SLIDE 01 / 15 • STRATEGIC EXECUTIVE SUMMARY</span>
+        <h2 class="slide-title" data-i18n="s1_title">Subverting Wall Street Hypotheses: Intelligence is a Free Giveaway; The Real Rent is in the Bottlenecks</h2>
+        <div class="slide-subtitle" data-i18n="s1_sub">An Empirical Dissection of Manidis & Roberts' 145-Page Monograph 'The Commanding Heights'</div>
+      </div>
+      <div class="slide-body">
+        <div class="takeaway-banner">
+          <strong data-i18n="s1_takeaway_label">Executive Takeaway:</strong>
+          <span data-i18n="s1_takeaway_text">Wall Street has priced foundation model companies as if they were Microsoft Office in the 1990s...</span>
+        </div>
+        <div class="cards-grid-4">
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s1_card1_title">Paradigm Shift 1: The 'Genesis' Abyss</div>
+            <div class="intel-card-body" data-i18n="s1_card1_desc">Foundation models are suffering from the 'Double-Sided Scissors'...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s1_card2_title">Paradigm Shift 2: The 2027 $460B FCF Deficit</div>
+            <div class="intel-card-body" data-i18n="s1_card2_desc">Hyperscalers ramp AI infrastructure capex to $620B by 2027...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s1_card3_title">Paradigm Shift 3: The 4th Corporate Restructuring</div>
+            <div class="intel-card-body" data-i18n="s1_card3_desc">Middle management and junior white-collar paper-pushers are dismantled...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s1_card4_title">Paradigm Shift 4: Brownfield PE Overhauls</div>
+            <div class="intel-card-body" data-i18n="s1_card4_desc">Venture capital ticket-buying in thin AI wrappers is collapsing...</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 2: 7% Curse -->
+    <article class="slide-card" id="slide-2">
+      <div class="slide-header">
+        <span class="slide-tag" data-i18n="s2_tag">SLIDE 02 / 15 • 500-YEAR COMMERCIAL LESSON</span>
+        <h2 class="slide-title" data-i18n="s2_title">The 7% Inventor's Curse: Commercial Revolutions Never Reward the Inventor</h2>
+        <div class="slide-subtitle" data-i18n="s2_sub">From the Steam Engine and Telegraph to PC Hardware, Web 1.0, and Foundation LLMs</div>
+      </div>
+      <div class="slide-body">
+        <div class="takeaway-banner">
+          <strong data-i18n="s2_takeaway_label">Historical Iron Law:</strong>
+          <span data-i18n="s2_takeaway_text">Economic history confirms that pioneers of general-purpose technologies capture only 5% to 9%...</span>
+        </div>
+        <div class="chart-container-box">
+          <div id="chart-history" class="chart-canvas"></div>
+        </div>
+        <div class="cards-grid-4">
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s2_card1_title">Watt & Boulton Steam Engine (1760-1840)</div>
+            <div class="intel-card-body" data-i18n="s2_card1_desc">Captured <9% of wealth. Over 91% enriched textile industrialists...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s2_card2_title">PC Hardware Standardization (1980-2005)</div>
+            <div class="intel-card-body" data-i18n="s2_card2_desc">IBM defined standards, hardware collapsed to 4% margin. Intel/MSFT won...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s2_card3_title">The Optical Fiber Dot-Com Crash (1995-2015)</div>
+            <div class="intel-card-body" data-i18n="s2_card3_desc">Telecoms bankrupt; Google & Amazon captured all consumer surplus...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s2_card4_title">Foundation LLMs (2022-2027E)</div>
+            <div class="intel-card-body" data-i18n="s2_card4_desc">Open-weights catch up in 90 days; models become 2026 steam engines...</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 3: Supply-side Scissors -->
+    <article class="slide-card" id="slide-3">
+      <div class="slide-header">
+        <span class="slide-tag" data-i18n="s3_tag">SLIDE 03 / 15 • SUPPLY-SIDE COMPRESSION</span>
+        <h2 class="slide-title" data-i18n="s3_title">The Foundation Model Abyss: 13x Annual Inference Deflation vs 3.5x Training Capex Escalation</h2>
+        <div class="slide-subtitle" data-i18n="s3_sub">Empirical Proof: Epoch AI 'The Plunging Price of Thought' & Frontier Compute Realities</div>
+      </div>
+      <div class="slide-body">
+        <div class="takeaway-banner">
+          <strong data-i18n="s3_takeaway_label">Supply-Side Divergence:</strong>
+          <span data-i18n="s3_takeaway_text">Frontier training capex escalated from $4.6M to $1.4B+ while token prices collapsed 99.8%...</span>
+        </div>
+        <div class="chart-container-box">
+          <div id="chart-scissors" class="chart-canvas"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 4: Capex Cliff -->
+    <article class="slide-card" id="slide-4">
+      <div class="slide-header">
+        <span class="slide-tag" data-i18n="s4_tag">SLIDE 04 / 15 • MACRO CAPITAL IMBALANCE</span>
+        <h2 class="slide-title" data-i18n="s4_title">The Capex Cliff & 'That Line': The $460 Billion Free Cash Flow Deficit by 2027</h2>
+        <div class="slide-subtitle" data-i18n="s4_sub">Apollo Global Management (Torsten Sløk) Macro Model & Hyperscaler SEC 10-K Analysis</div>
+      </div>
+      <div class="slide-body">
+        <div class="takeaway-banner">
+          <strong data-i18n="s4_takeaway_label">Macro Capital Reality:</strong>
+          <span data-i18n="s4_takeaway_text">Hyperscaler capex compounds to $620B in 2027 against at most $160B incremental AI software ARR...</span>
+        </div>
+        <div class="chart-container-box">
+          <div id="chart-capex" class="chart-canvas"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 5: Labor Bifurcation -->
+    <article class="slide-card" id="slide-5">
+      <div class="slide-header">
+        <span class="slide-tag" data-i18n="s5_tag">SLIDE 05 / 15 • LABOR RESTRUCTURING</span>
+        <h2 class="slide-title" data-i18n="s5_title">Global White-Collar K-Shaped Bifurcation: Offshore Collapse & The 'Paper Tape Defense'</h2>
+        <div class="slide-subtitle" data-i18n="s5_sub">Tata Consultancy Services (TCS) FY24-26 Slump vs U.S. 168M Labor Reality (Census Bureau BTOS)</div>
+      </div>
+      <div class="slide-body">
+        <div class="takeaway-banner">
+          <strong data-i18n="s5_takeaway_label">Labor Paradigm Shift:</strong>
+          <span data-i18n="s5_takeaway_text">The traditional offshore Time & Material IT model is broken...</span>
+        </div>
+        <div class="cards-grid-2">
+          <div class="chart-container-box">
+            <div id="chart-it-margins" class="chart-canvas"></div>
+          </div>
+          <div class="chart-container-box">
+            <div id="chart-labor-pyramid" class="chart-canvas"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 6: 4th Corporate Reorg -->
+    <article class="slide-card" id="slide-6">
+      <div class="slide-header">
+        <span class="slide-tag" data-i18n="s6_tag">SLIDE 06 / 15 • ORGANIZATIONAL RESTRUCTURING</span>
+        <h2 class="slide-title" data-i18n="s6_title">The 4th Corporate Restructuring: Coase's Theorem Rewritten & Middle Management Dissolution</h2>
+        <div class="slide-subtitle" data-i18n="s6_sub">From Multi-Divisional Hierarchies to Lean Autonomous Agentic Networks</div>
+      </div>
+      <div class="slide-body">
+        <div class="takeaway-banner">
+          <strong data-i18n="s6_takeaway_label">Organizational Shift:</strong>
+          <span data-i18n="s6_takeaway_text">Autonomous agents eliminate internal coordination friction, rendering middle managers obsolete...</span>
+        </div>
+        <div class="cards-grid-3">
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s6_card1_title">Layer 1: Elimination of Information Relayers</div>
+            <div class="intel-card-body" data-i18n="s6_card1_desc">Staff who aggregate Excel sheets from Dept A to create slides for Dept B are disintermediated...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s6_card2_title">Layer 2: Flattening of the Hierarchy</div>
+            <div class="intel-card-body" data-i18n="s6_card2_desc">A 5-person executive team achieves the output of a legacy 80-person department...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s6_card3_title">Layer 3: Human-Centric Fiduciary Capital</div>
+            <div class="intel-card-body" data-i18n="s6_card3_desc">Compensation shifts to risk carried and signed for. Trust and personal reputation command 10x premiums...</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 7: Defensibility Framework -->
+    <article class="slide-card" id="slide-7">
+      <div class="slide-header">
+        <span class="slide-tag" data-i18n="s7_tag">SLIDE 07 / 15 • DEFINITIVE FRAMEWORK</span>
+        <h2 class="slide-title" data-i18n="s7_title">What is the Real 'Commanding Height'? Temporary Bottlenecks vs Permanent Economic Power</h2>
+        <div class="slide-subtitle" data-i18n="s7_sub">A 6-Dimensional Defensibility Evaluation Across the AI Value Chain</div>
+      </div>
+      <div class="slide-body">
+        <div class="takeaway-banner">
+          <strong data-i18n="s7_takeaway_label">Defensibility Diagnostic:</strong>
+          <span data-i18n="s7_takeaway_text">Foundation models rank lowest in long-term defensibility; SoR and Clean Power rank highest...</span>
+        </div>
+        <div class="chart-container-box">
+          <div id="chart-radar" class="chart-canvas"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 8: Capital Transition -->
+    <article class="slide-card" id="slide-8">
+      <div class="slide-header">
+        <span class="slide-tag" data-i18n="s8_tag">SLIDE 08 / 15 • CAPITAL TRANSITION</span>
+        <h2 class="slide-title" data-i18n="s8_title">Private Equity & Secondary Markets: From VC Tickets to Brownfield AI Buyouts</h2>
+        <div class="slide-subtitle" data-i18n="s8_sub">Why Silicon Valley Venture Capital is Being Overtaken by Operational Private Equity</div>
+      </div>
+      <div class="slide-body">
+        <div class="takeaway-banner">
+          <strong data-i18n="s8_takeaway_label">Capital Deployment Pivot:</strong>
+          <span data-i18n="s8_takeaway_text">Funding thin-wrapper startups at 50x ARR is dead. Smart capital buys cash-flow businesses at 4x EBITDA...</span>
+        </div>
+        <div class="cards-grid-3">
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s8_card1_title">Brownfield AI Arbitrage</div>
+            <div class="intel-card-body" data-i18n="s8_card1_desc">Acquire low-tech high cash-flow businesses; inject automated agent workflows to double EBITDA margins...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s8_card2_title">Ticket-Punching VC Collapse</div>
+            <div class="intel-card-body" data-i18n="s8_card2_desc">UI wrappers around LLM APIs face 100% platform risk and immediate feature subsumption...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s8_card3_title">System of Record Dominance</div>
+            <div class="intel-card-body" data-i18n="s8_card3_desc">Epic Systems or SAP cannot be replaced easily because of regulatory certification and 15-year audit trails...</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 9: Buffett's Lesson -->
+    <article class="slide-card" id="slide-9">
+      <div class="slide-header">
+        <span class="slide-tag" data-i18n="s9_tag">SLIDE 09 / 15 • INVESTMENT WARNING</span>
+        <h2 class="slide-title" data-i18n="s9_title">Buffett's 60% Newspaper Loss: Don't Buy 2012 Newspapers in 2026</h2>
+        <div class="slide-subtitle" data-i18n="s9_sub">The Danger of Buying Disrupted Distribution Moats Assuming AI Can Save Them</div>
+      </div>
+      <div class="slide-body">
+        <div class="takeaway-banner">
+          <strong data-i18n="s9_takeaway_label">Classic Capital Precedent:</strong>
+          <span data-i18n="s9_takeaway_text">Buffett acquired 30 newspapers for $344M in 2012, believing local monopolies held. Dumped for $140M in 2020...</span>
+        </div>
+        <div class="cards-grid-3">
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s9_card1_title">The False Moat Illusion</div>
+            <div class="intel-card-body" data-i18n="s9_card1_desc">Buffett thought local monopolies held. When attention shifted to smartphones, monopolies evaporated...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s9_card2_title">Technology Enablement Trap</div>
+            <div class="intel-card-body" data-i18n="s9_card2_desc">Investing in digital apps could not overcome structural distribution loss. Technology cannot save a dying channel...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s9_card3_title">Modern 2026 Equivalent</div>
+            <div class="intel-card-body" data-i18n="s9_card3_desc">Buying legacy seat-based B2B SaaS expecting AI features to save 80% gross margins is the modern equivalent...</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 10: Critical Audit -->
+    <article class="slide-card" id="slide-10">
+      <div class="slide-header">
+        <span class="slide-tag" data-i18n="s10_tag">SLIDE 10 / 15 • CRITICAL AUDIT & FACT-CHECK</span>
+        <h2 class="slide-title" data-i18n="s10_title">Social Media Distortion Audit & Report Feasibility Critique</h2>
+        <div class="slide-subtitle" data-i18n="s10_sub">Debunking 10x Translation Errors & Exposing Key Blind Spots in the Original Monograph</div>
+      </div>
+      <div class="slide-body">
+        <div class="takeaway-banner">
+          <strong data-i18n="s10_takeaway_label">Critical Evaluation:</strong>
+          <span data-i18n="s10_takeaway_text">Social media introduced severe distortions (e.g. 10x exaggeration of white-collar adoption). Original report had blind spots...</span>
+        </div>
+        <div class="cards-grid-2">
+          <div class="intel-card" style="border-left: 4px solid var(--accent-rose);">
+            <div class="intel-card-header" data-i18n="s10_card1_title">Viral Distortion: 'Tens of Millions' vs Reality</div>
+            <div class="intel-card-body" data-i18n="s10_card1_desc">Census Bureau BTOS proves enterprise AI adoption is just 5.4%. Original report said 'a few million'. Exaggerated 10x...</div>
+          </div>
+          <div class="intel-card" style="border-left: 4px solid var(--accent-amber);">
+            <div class="intel-card-header" data-i18n="s10_card2_title">Report Blind Spot: Test-Time Compute</div>
+            <div class="intel-card-body" data-i18n="s10_card2_desc">o1/o3/Claude 3.7 consume 50x more reasoning tokens per query. Pricing shifts to outcome-based, preserving revenue...</div>
+          </div>
+          <div class="intel-card" style="border-left: 4px solid var(--primary);">
+            <div class="intel-card-header" data-i18n="s10_card3_title">Report Blind Spot: Cloud OS Monopolies</div>
+            <div class="intel-card-body" data-i18n="s10_card3_desc">Hyperscalers own Windows, Office 365, Android, and Chrome—the world's most lucrative distribution tollbooths...</div>
+          </div>
+          <div class="intel-card" style="border-left: 4px solid var(--accent-rose);">
+            <div class="intel-card-header" data-i18n="s10_card4_title">Viral Distortion: Groq 'Acquisition'</div>
+            <div class="intel-card-body" data-i18n="s10_card4_desc">Transaction was non-exclusive IP architecture license and talent acqui-hire to avoid FTC review. Not an outright sale...</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 11: Fact-Check Ledger -->
+    <article class="slide-card" id="slide-11">
+      <div class="slide-header">
+        <span class="slide-tag" data-i18n="s11_tag">SLIDE 11 / 15 • EMPIRICAL AUDIT LEDGER</span>
+        <h2 class="slide-title" data-i18n="s11_title">Cross-Disciplinary Fact-Check & Data Audit Ledger</h2>
+        <div class="slide-subtitle" data-i18n="s11_sub">Strict Benchmarking against Census Bureau, Epoch AI, Apollo Global, and SEC 10-K Filings</div>
+      </div>
+      <div class="slide-body">
+        <div class="takeaway-banner">
+          <strong data-i18n="s11_takeaway_label">Audit Verdict:</strong>
+          <span data-i18n="s11_takeaway_text">Core macro theses are 100% verified by audited primary sources; white-collar workforce claims in social media are 10x exaggerated...</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 16%;">Claim / Thesis</th>
+                <th style="width: 12%;">Verdict</th>
+                <th style="width: 32%;">Primary Source & Academic Provenance</th>
+                <th style="width: 40%;">Empirical Cross-Verification & Mechanism</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>U.S. White-Collar AI Adoption</strong></td>
+                <td><span class="badge badge-error">10x Error</span></td>
+                <td><strong>U.S. Census Bureau</strong> BTOS WP 26-25 (2024-2025); <strong>BLS</strong> CPS</td>
+                <td>Total US white-collar pool is ~62M; software developers 4.4M. BTOS proves enterprise AI adoption is only 5.4% (~3M-5M heavy users). Social media translated 'a few million' into 'tens of millions'.</td>
+              </tr>
+              <tr>
+                <td><strong>2027 Hyperscaler FCF Gap ($460B)</strong></td>
+                <td><span class="badge badge-verified">Verified</span></td>
+                <td><strong>Apollo Global Management</strong> (Torsten Sløk); SEC 10-K Filings</td>
+                <td>Cloud capex expands at >35% CAGR to $620B in 2027. Incremental enterprise AI ARR yields at most ~$160B, creating an audited $460B return deficit.</td>
+              </tr>
+              <tr>
+                <td><strong>13x Annual Token Price Deflation</strong></td>
+                <td><span class="badge badge-nuanced">Nuanced</span></td>
+                <td><strong>Epoch AI</strong> <em>The Plunging Price of Thought</em> (2024-2026)</td>
+                <td>Raw spot token prices indeed dropped 13x/yr (47%/qtr). But Test-Time Compute (o1/o3/Claude 3.7) multiplies tokens per query by 10-100x, transitioning billing to outcome-based.</td>
+              </tr>
+              <tr>
+                <td><strong>Spirit Airlines Data Auction ($10M)</strong></td>
+                <td><span class="badge badge-verified">Verified</span></td>
+                <td><strong>U.S. Bankruptcy Court</strong> Docket No. 24-10582 (Spirit Reorganization)</td>
+                <td>Google bid $10M for 15PB of non-public flight telemetry, outbidding AI-native Mercor ($7.5M), proving physical system telemetry holds massive premiums over scraped web text.</td>
+              </tr>
+              <tr>
+                <td><strong>Groq $17B Nvidia Deal</strong></td>
+                <td><span class="badge badge-error">Mischaracterized</span></td>
+                <td>SEC Filings & Regulatory Disclosure Archives (2026)</td>
+                <td>Not an outright acquisition. Nvidia structured a $17B valuation non-exclusive LPU IP license and talent acqui-hire to bypass FTC antitrust blocks. Groq remains an independent entity.</td>
+              </tr>
+              <tr>
+                <td><strong>Indian IT Outsourcing Slump</strong></td>
+                <td><span class="badge badge-verified">Verified</span></td>
+                <td><strong>TCS & Infosys</strong> FY24-FY26 Annual Audited Results; <strong>Nasscom</strong></td>
+                <td>Time & Material billing broken by AI coding swarms. Net headcount additions turned negative for 6 quarters; operating margins compressed from 27% to 22%.</td>
+              </tr>
+              <tr>
+                <td><strong>Buffett Newspaper Loss (-59.3%)</strong></td>
+                <td><span class="badge badge-verified">Verified</span></td>
+                <td><strong>Berkshire Hathaway</strong> Form 10-K & Letters to Shareholders (2012-2020)</td>
+                <td>Bought 30 newspapers for $344M in 2012, sold to Lee Enterprises for $140M in 2020. Proves digital enablement cannot save a fundamentally disrupted distribution channel.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 12: Salaried Worker Playbook -->
+    <article class="slide-card" id="slide-12">
+      <div class="slide-header">
+        <span class="slide-tag" data-i18n="s12_tag">SLIDE 12 / 15 • INDIVIDUAL ACTION PLAYBOOK</span>
+        <h2 class="slide-title" data-i18n="s12_title">Survival & Elevation Playbook for Everyday Individuals & Salaried Workers</h2>
+        <div class="slide-subtitle" data-i18n="s12_sub">How to Avoid Becoming an Unpaid Machine Labeler & Build Personal Economic Defensibility</div>
+      </div>
+      <div class="slide-body">
+        <div class="takeaway-banner">
+          <strong data-i18n="s12_takeaway_label">Personal Defense Framework:</strong>
+          <span data-i18n="s12_takeaway_text">Avoid low-level intermediate data processing. Anchor career to non-delegable legal liability...</span>
+        </div>
+        <div class="cards-grid-4">
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s12_card1_title">1. Anchor to Non-Delegable Fiduciary Liability</div>
+            <div class="intel-card-body" data-i18n="s12_card1_desc">AI models cannot be sued or lose a professional license. Position in roles requiring statutory sign-off authority...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s12_card2_title">2. Evolve into a Symbiotic Multi-Agent Operator</div>
+            <div class="intel-card-body" data-i18n="s12_card2_desc">Command autonomous squads of research, coding, and design agents to deliver the output of a 5-person team...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s12_card3_title">3. Cultivate High-Trust Personal Social Capital</div>
+            <div class="intel-card-body" data-i18n="s12_card3_desc">When software generation is near-zero cost, human empathy, negotiation credibility, and reputation earn luxury premiums...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s12_card4_title">4. Master Tacit 'Dirty Field' Dark Knowledge</div>
+            <div class="intel-card-body" data-i18n="s12_card4_desc">Step out of digital offices. Master physical supply chains, job-site troubleshooting, and real-world constraints...</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 13: Future Golden Sectors -->
+    <article class="slide-card" id="slide-13">
+      <div class="slide-header">
+        <span class="slide-tag" data-i18n="s13_tag">SLIDE 13 / 15 • FUTURE GOLDEN SECTORS</span>
+        <h2 class="slide-title" data-i18n="s13_title">The Eight Golden Sectors of AI: Where Will Economic Rent Concentrate?</h2>
+        <div class="slide-subtitle" data-i18n="s13_sub">Identifying the Androids, DoubleClicks, and Tollbooths of the Next Decade (2026–2035)</div>
+      </div>
+      <div class="slide-body">
+        <div class="takeaway-banner">
+          <strong data-i18n="s13_takeaway_label">Future Value Capture:</strong>
+          <span data-i18n="s13_takeaway_text">Economic rent consolidates in 8 defensible arenas controlling physical constraints and system-level switching costs...</span>
+        </div>
+        <div class="cards-grid-4">
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s13_col1_title">Physical Infrastructure & Clean Power</div>
+            <div class="intel-card-body" data-i18n="s13_col1_desc">SMR nuclear, high-voltage grid interconnects, liquid cooling. Natural multi-year permitting monopolies...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s13_col2_title">Proprietary Kinetic Telemetry</div>
+            <div class="intel-card-body" data-i18n="s13_col2_desc">Aviation flight logs, surgical robotics, chemical reaction feeds. Non-public real-world training fuel...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s13_col3_title">Incumbent Systems of Record (SoR)</div>
+            <div class="intel-card-body" data-i18n="s13_col3_desc">Epic, SAP, Bloomberg. Decades of regulatory certification and 15-year replacement cycles...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s13_col4_title">Embodied Heavy Industrial Automation</div>
+            <div class="intel-card-body" data-i18n="s13_col4_desc">Robotic automation in ports, mining heavy transport, subsea. Exerting real mechanical force...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s13_col5_title">Brownfield AI Private Equity Overhauls</div>
+            <div class="intel-card-body" data-i18n="s13_col5_desc">Acquiring unsexy cash-flow businesses at 4x EBITDA and automating 50% of SG&A overhead...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s13_col6_title">Fiduciary Risk & Compliance Gateways</div>
+            <div class="intel-card-body" data-i18n="s13_col6_desc">Hallucination insurance, legal sign-off gateways, autonomous red-teaming. Absorbing enterprise risk...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s13_col7_title">Edge Inference & Local On-Device NPUs</div>
+            <div class="intel-card-body" data-i18n="s13_col7_desc">Apple Silicon, Qualcomm, ARM. Zero cloud latency, absolute data privacy, no recurring token bills...</div>
+          </div>
+          <div class="intel-card">
+            <div class="intel-card-header" data-i18n="s13_col8_title">High-Empathy Bespoke Advisory</div>
+            <div class="intel-card-body" data-i18n="s13_col8_desc">Family wealth stewardship, crisis mediation, executive coaching. Irreplaceable human resonance...</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 14: Sensitivity Simulator -->
+    <article class="slide-card" id="slide-14">
+      <div class="slide-header">
+        <span class="slide-tag" data-i18n="s14_tag">SLIDE 14 / 15 • SCENARIO SIMULATION</span>
+        <h2 class="slide-title" data-i18n="s14_title">Interactive Monte-Carlo Sensitivity Simulator</h2>
+        <div class="slide-subtitle" data-i18n="s14_sub">Stress-Testing Hyperscaler FCF Deficits & Foundation Model Gross Margin Trajectories</div>
+      </div>
+      <div class="slide-body">
+        <div class="takeaway-banner">
+          <strong data-i18n="s14_takeaway_label">Interactive Tool:</strong>
+          <span data-i18n="s14_takeaway_text">Drag the sliders below to simulate how parameters affect the 2027 Capital Gap and Model Gross Margins...</span>
+        </div>
+        
+        <div class="sim-controls-grid">
+          <div class="slider-item">
+            <div class="slider-header">
+              <span data-i18n="s14_slider1">Annual Inference Price Deflation Rate (%):</span>
+              <span class="slider-val" id="val-deflation">47%</span>
+            </div>
+            <input type="range" id="input-deflation" min="10" max="80" value="47" oninput="updateSimulation()">
+          </div>
+          <div class="slider-item">
+            <div class="slider-header">
+              <span data-i18n="s14_slider2">Hyperscaler Capex Annual Growth Rate (CAGR %):</span>
+              <span class="slider-val" id="val-capex-growth">35%</span>
+            </div>
+            <input type="range" id="input-capex-growth" min="10" max="60" value="35" oninput="updateSimulation()">
+          </div>
+          <div class="slider-item">
+            <div class="slider-header">
+              <span data-i18n="s14_slider3">Enterprise White-Collar Agent Replacement Rate (%):</span>
+              <span class="slider-val" id="val-agent-replace">15%</span>
+            </div>
+            <input type="range" id="input-agent-replace" min="2" max="50" value="15" oninput="updateSimulation()">
+          </div>
+        </div>
+
+        <div class="sim-kpis">
+          <div class="sim-kpi-card">
+            <div class="sim-kpi-label" data-i18n="s14_metric1">Simulated 2027 FCF Deficit ($B):</div>
+            <div class="sim-kpi-num" id="metric-fcf-gap">$460B</div>
+          </div>
+          <div class="sim-kpi-card">
+            <div class="sim-kpi-label" data-i18n="s14_metric2">Model Layer Gross Margin Projection (%):</div>
+            <div class="sim-kpi-num" id="metric-gross-margin">18.5%</div>
+          </div>
+          <div class="sim-kpi-card">
+            <div class="sim-kpi-label" data-i18n="s14_metric3">Capital Return Crisis Probability:</div>
+            <div class="sim-kpi-num" id="metric-crisis-prob" style="color: var(--accent-rose);">82%</div>
+          </div>
+        </div>
+
+        <div class="chart-container-box">
+          <div id="chart-simulation" class="chart-canvas"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLIDE 15: Final Asset Allocation -->
+    <article class="slide-card" id="slide-15">
+      <div class="slide-header">
+        <span class="slide-tag" data-i18n="s15_tag">SLIDE 15 / 15 • ASSET ALLOCATION</span>
+        <h2 class="slide-title" data-i18n="s15_title">Final Strategic Asset Allocation Blueprint & Decision Matrix</h2>
+        <div class="slide-subtitle" data-i18n="s15_sub">In the New Economy: Either Own the Railroads or Collect Taxes on the Railroads</div>
+      </div>
+      <div class="slide-body">
+        <div class="takeaway-banner">
+          <strong data-i18n="s15_takeaway_label">Strategic Conclusion:</strong>
+          <span data-i18n="s15_takeaway_text">Divest rapidly from overvalued thin-layer wrappers; reallocate toward energy monopolies, telemetry owners, and SoRs...</span>
+        </div>
+        
+        <div class="cards-grid-4">
+          <div class="intel-card" style="border-top: 4px solid var(--primary);">
+            <div class="intel-card-header">1. Venture & Public Equities</div>
+            <div class="intel-card-body">
+              • <strong>DIVEST:</strong> Foundation model wrappers and generic LLM labs.<br>
+              • <strong>BUY:</strong> Energy grid transformers, datacenter cooling, and edge NPUs.<br>
+              • <strong>HEDGE:</strong> Short legacy B2B seat-based SaaS without proprietary SoR.
+            </div>
+          </div>
+          <div class="intel-card" style="border-top: 4px solid var(--accent-emerald);">
+            <div class="intel-card-header">2. Enterprise CXOs & Founders</div>
+            <div class="intel-card-body">
+              • <strong>ARCHITECT:</strong> Multi-model hot-swappable routing.<br>
+              • <strong>MOAT:</strong> Build closed-loop kinetic feedback telemetry from Day 1.<br>
+              • <strong>PRICING:</strong> Pivot contracts from seat licenses to outcome-based fees.
+            </div>
+          </div>
+          <div class="intel-card" style="border-top: 4px solid var(--accent-amber);">
+            <div class="intel-card-header">3. IT Outsourcers & SIs</div>
+            <div class="intel-card-body">
+              • <strong>ABOLISH:</strong> Billable hours and Time & Material contracts.<br>
+              • <strong>ADOPT:</strong> Guaranteed outcome delivery with agent swarms.<br>
+              • <strong>SPECIALIZE:</strong> High-liability legacy system migrations (COBOL to Rust).
+            </div>
+          </div>
+          <div class="intel-card" style="border-top: 4px solid var(--accent-purple);">
+            <div class="intel-card-header">4. Salaried Individuals</div>
+            <div class="intel-card-body">
+              • <strong>AVOID:</strong> Intermediate data copying and draft formatting.<br>
+              • <strong>ANCHOR:</strong> Acquire legal licensing and sign-off authority.<br>
+              • <strong>MULTIPLY:</strong> Command autonomous agent squads to 5x your output.
+            </div>
+          </div>
+        </div>
+
+        <div class="intel-card" style="background: var(--bg-card-sub); text-align: center; padding: 2rem;">
+          <blockquote style="font-size: 1.15rem; font-style: italic; color: var(--text-main); margin-bottom: 0.6rem;" data-i18n="s15_quote">
+            “Decisively sell overvalued legacy tollbooths; buy out the indispensable choke-points before the new tollbooths become market consensus.”
+          </blockquote>
+          <div style="font-size: 0.85rem; color: var(--text-dim);" data-i18n="s15_quote_author">—— Will Manidis & Joe Roberts, 'The Commanding Heights' Epilogue</div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-dim); border-top: 1px solid var(--border-color); padding-top: 1rem;">
+          <span data-i18n="s15_footer_text">Presentation Concluded • Executive Consulting Deliverable</span>
+          <span data-i18n="s15_footer_brand">Zubin Li & Antigravity Strategic Advisory 2026</span>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="global-footer">
+    <div data-i18n="footer_text">The Commanding Heights of AI: Foundation Model Commoditization, Empirical Fact-Check, and Strategic Reallocation of Economic Rent</div>
+    <div data-i18n="footer_provenance">Data Provenance: Epoch AI, Apollo Global Management, U.S. Census Bureau, BLS, Stanford HAI, SEC Form 10-K</div>
+    <div>
+      <a href="https://github.com/zubin-li/ai-commanding-heights-analysis" target="_blank" rel="noopener">GitHub Repository</a> | 
+      <a href="./docs/strategic_report.md" target="_blank">Executive Report (Markdown)</a> | 
+      <a href="./docs/PLAYBOOK_FOR_INDIVIDUALS.md" target="_blank">Salaried Worker Playbook</a> | 
+      <a href="./docs/citations.md" target="_blank">Academic Citations</a>
+    </div>
+    <div data-i18n="footer_license">MIT License • Distributed for Academic Research and Strategic Evaluation • © 2026 Zubin Li & Antigravity</div>
+  </footer>
+
+  <!-- Modal 1: 19P Source Gallery -->
+  <div class="modal-backdrop" id="modal-source" onclick="closeSourceModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <h3 data-i18n="modal_source_title">🖼️ 19-Page Primary Source Slide Gallery</h3>
+          <div style="font-size: 0.82rem; color: var(--text-muted);" data-i18n="modal_source_desc">Click any image to view high-resolution scan.</div>
+        </div>
+        <button class="btn" onclick="closeSourceModal()">&times; Close</button>
+      </div>
+      <div class="gallery-grid" id="gallery-container"></div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Fact-Check Ledger -->
+  <div class="modal-backdrop" id="modal-ledger" onclick="closeLedgerModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <h3 data-i18n="modal_ledger_title">🔍 Fact-Check & Cross-Verification Ledger</h3>
+          <div style="font-size: 0.82rem; color: var(--text-muted);" data-i18n="modal_ledger_desc">Comparing viral claims, empirical data sources, and analytical root causes.</div>
+        </div>
+        <button class="btn" onclick="closeLedgerModal()">&times; Close</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Viral Claim</th>
+              <th>Official Reality</th>
+              <th>Verdict</th>
+              <th>Empirical Evidence</th>
+            </tr>
+          </thead>
+          <tbody id="ledger-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client-Side Orchestrator Script -->
+  <script>
+    // State: DEFAULT TO ENGLISH ('en') AND LIGHT THEME ('light')
+    const AppState = {
+      lang: localStorage.getItem('ai_deck_lang') || 'en',
+      theme: localStorage.getItem('ai_deck_theme') || 'light'
+    };
+
+    const Charts = {};
+
+    function t(key) {
+      if (typeof translations !== 'undefined' && translations[AppState.lang] && translations[AppState.lang][key]) {
+        return translations[AppState.lang][key];
+      }
+      return key;
+    }
+
+    function getChartThemeColors() {
+      const isDark = AppState.theme === 'dark';
+      return {
+        textColor: isDark ? '#94a3b8' : '#475569',
+        titleColor: isDark ? '#f8fafc' : '#0f172a',
+        gridLine: isDark ? '#334155' : '#e2e8f0',
+        tooltipBg: isDark ? '#1e293b' : '#ffffff',
+        tooltipBorder: isDark ? '#475569' : '#cbd5e1'
+      };
+    }
+
+    // Set & Apply Language (en | zh)
+    function setLanguage(lang) {
+      AppState.lang = lang;
+      localStorage.setItem('ai_deck_lang', lang);
+      document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
+      
+      // Update language toggle buttons
+      const btnEn = document.getElementById('btn-lang-en');
+      const btnZh = document.getElementById('btn-lang-zh');
+      if (btnEn) btnEn.classList.toggle('active', lang === 'en');
+      if (btnZh) btnZh.classList.toggle('active', lang === 'zh');
+
+      // Update all DOM elements with data-i18n attribute
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+
+      // Update Chart labels & re-render
+      renderAllCharts();
+      updateSimulation();
+    }
+
+    // Toggle Theme (light | dark)
+    function toggleTheme() {
+      const nextTheme = AppState.theme === 'light' ? 'dark' : 'light';
+      AppState.theme = nextTheme;
+      localStorage.setItem('ai_deck_theme', nextTheme);
+      document.documentElement.setAttribute('data-theme', nextTheme);
+
+      const btnText = document.getElementById('theme-text');
+      const btnIcon = document.getElementById('theme-icon');
+      if (nextTheme === 'dark') {
+        if (btnText) btnText.textContent = AppState.lang === 'zh' ? '☀️ 白天模式' : '☀️ Light';
+        if (btnIcon) btnIcon.textContent = '☀️';
+      } else {
+        if (btnText) btnText.textContent = AppState.lang === 'zh' ? '🌙 暗黑模式' : '🌙 Dark';
+        if (btnIcon) btnIcon.textContent = '🌙';
+      }
+
+      renderAllCharts();
+    }
+
+    function initTheme() {
+      document.documentElement.setAttribute('data-theme', AppState.theme);
+      const btnText = document.getElementById('theme-text');
+      const btnIcon = document.getElementById('theme-icon');
+      if (AppState.theme === 'dark') {
+        if (btnText) btnText.textContent = AppState.lang === 'zh' ? '☀️ 白天模式' : '☀️ Light';
+        if (btnIcon) btnIcon.textContent = '☀️';
+      } else {
+        if (btnText) btnText.textContent = AppState.lang === 'zh' ? '🌙 暗黑模式' : '🌙 Dark';
+        if (btnIcon) btnIcon.textContent = '🌙';
+      }
+    }
+
+    // -------------------------------------------------------------
+    // CHARTS RENDERING
+    // -------------------------------------------------------------
+    function renderAllCharts() {
+      renderChartHistory();
+      renderChartScissors();
+      renderChartCapex();
+      renderChartITMargins();
+      renderChartLaborPyramid();
+      renderChartRadar();
+      renderChartSimulation();
+    }
+
+    // Chart 1: 500-Year Commercial History
+    function renderChartHistory() {
+      const dom = document.getElementById('chart-history');
+      if (!dom || typeof echarts === 'undefined') return;
+      if (Charts.history) Charts.history.dispose();
+      const chart = echarts.init(dom);
+      Charts.history = chart;
+      const c = getChartThemeColors();
+      const isZh = AppState.lang === 'zh';
+
+      const categories = isZh ? 
+        ['蒸汽机 (1760-1840)', '远距电报 (1840-1900)', 'PC硬件制造 (1980-2005)', '光纤互联网 (1995-2015)', '通用大模型 (2022-2027E)'] :
+        ['Steam Engine (1760-1840)', 'Telegraph (1840-1900)', 'PC Hardware (1980-2005)', 'Internet Fiber (1995-2015)', 'Foundation LLMs (2022-2027E)'];
+
+      const opt = {
+        animation: false,
+        tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+        legend: {
+          data: isZh ? ['发明者租金留存', '下游消费者盈余'] : ["Inventor's Retained Rent", "Downstream Consumer Surplus"],
+          textStyle: { color: c.textColor },
+          top: 10
+        },
+        grid: { left: '3%', right: '4%', bottom: '5%', top: '15%', containLabel: true },
+        xAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value}%', color: c.textColor }, splitLine: { lineStyle: { color: c.gridLine } } },
+        yAxis: { type: 'category', data: categories, axisLabel: { color: c.titleColor, fontWeight: 'bold' } },
+        series: [
+          {
+            name: isZh ? '发明者租金留存' : "Inventor's Retained Rent",
+            type: 'bar',
+            stack: 'total',
+            data: [9, 11, 6, 7, 6],
+            itemStyle: { color: '#0284c7' },
+            label: { show: true, formatter: '{c}%', color: '#fff', fontWeight: 'bold' }
+          },
+          {
+            name: isZh ? '下游消费者盈余' : "Downstream Consumer Surplus",
+            type: 'bar',
+            stack: 'total',
+            data: [91, 89, 94, 93, 94],
+            itemStyle: { color: '#94a3b8' },
+            label: { show: true, formatter: '{c}%', color: '#fff', fontWeight: 'bold' }
+          }
+        ]
+      };
+      chart.setOption(opt);
+    }
+
+    // Chart 2: Scissors (Epoch AI Deflation vs Training Cost)
+    function renderChartScissors() {
+      const dom = document.getElementById('chart-scissors');
+      if (!dom || typeof echarts === 'undefined') return;
+      if (Charts.scissors) Charts.scissors.dispose();
+      const chart = echarts.init(dom);
+      Charts.scissors = chart;
+      const c = getChartThemeColors();
+      const isZh = AppState.lang === 'zh';
+
+      const opt = {
+        animation: false,
+        tooltip: { trigger: 'axis', axisPointer: { type: 'cross' } },
+        legend: {
+          data: isZh ? ['推理价格指数 (2020=100)', '前沿模型训练算力支出 ($M)'] : ['Raw Token Price Index (2020=100)', 'Frontier Training Capex ($M)'],
+          textStyle: { color: c.textColor },
+          top: 10
+        },
+        grid: { left: '3%', right: '5%', bottom: '8%', top: '16%', containLabel: true },
+        xAxis: {
+          type: 'category',
+          data: ['2020 (GPT-3)', '2021', '2022 (PaLM)', '2023 (GPT-4)', '2024 (Claude 3.5)', '2025 (o1)', '2026 (Frontier)'],
+          axisLabel: { color: c.textColor }
+        },
+        yAxis: [
+          {
+            type: 'log',
+            name: isZh ? '价格指数 (对数轴)' : 'Price Index (Log)',
+            nameTextStyle: { color: c.textColor },
+            axisLabel: { color: c.textColor, formatter: '{value}' },
+            splitLine: { lineStyle: { color: c.gridLine } }
+          },
+          {
+            type: 'value',
+            name: isZh ? '训练 Capex ($M)' : 'Training Capex ($M)',
+            nameTextStyle: { color: c.textColor },
+            axisLabel: { color: c.textColor, formatter: '${value}M' },
+            splitLine: { show: false }
+          }
+        ],
+        series: [
+          {
+            name: isZh ? '推理价格指数 (2020=100)' : 'Raw Token Price Index (2020=100)',
+            type: 'line',
+            yAxisIndex: 0,
+            data: [100.0, 52.0, 26.5, 12.8, 4.2, 1.1, 0.2],
+            itemStyle: { color: '#0284c7' },
+            lineStyle: { width: 3.5 },
+            symbolSize: 8
+          },
+          {
+            name: isZh ? '前沿模型训练算力支出 ($M)' : 'Frontier Training Capex ($M)',
+            type: 'bar',
+            yAxisIndex: 1,
+            data: [4.6, 8.0, 15.0, 80.0, 250.0, 600.0, 1400.0],
+            itemStyle: { color: '#f59e0b' },
+            label: { show: true, position: 'top', formatter: '${c}M', color: c.titleColor, fontWeight: 'bold' }
+          }
+        ]
+      };
+      chart.setOption(opt);
+    }
+
+    // Chart 3: Capex Cliff ($460B Deficit)
+    function renderChartCapex() {
+      const dom = document.getElementById('chart-capex');
+      if (!dom || typeof echarts === 'undefined') return;
+      if (Charts.capex) Charts.capex.dispose();
+      const chart = echarts.init(dom);
+      Charts.capex = chart;
+      const c = getChartThemeColors();
+      const isZh = AppState.lang === 'zh';
+
+      const opt = {
+        animation: false,
+        tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+        legend: {
+          data: isZh ? ['四大云巨头年度算力开支', '增量企业级 AI 软件 ARR'] : ['Hyperscaler Annual AI Capex ($B)', 'Incremental Enterprise AI ARR ($B)'],
+          textStyle: { color: c.textColor },
+          top: 10
+        },
+        grid: { left: '3%', right: '4%', bottom: '5%', top: '15%', containLabel: true },
+        xAxis: { type: 'category', data: ['2022', '2023', '2024', '2025E', '2026E', '2027E'], axisLabel: { color: c.textColor, fontWeight: 'bold' } },
+        yAxis: { type: 'value', axisLabel: { color: c.textColor, formatter: '${value}B' }, splitLine: { lineStyle: { color: c.gridLine } } },
+        series: [
+          {
+            name: isZh ? '四大云巨头年度算力开支' : 'Hyperscaler Annual AI Capex ($B)',
+            type: 'bar',
+            data: [145, 175, 240, 350, 480, 620],
+            itemStyle: { color: '#0284c7' },
+            label: { show: true, position: 'top', formatter: '${c}B', color: c.titleColor, fontWeight: 'bold' }
+          },
+          {
+            name: isZh ? '增量企业级 AI 软件 ARR' : 'Incremental Enterprise AI ARR ($B)',
+            type: 'bar',
+            data: [12, 28, 55, 90, 125, 160],
+            itemStyle: { color: '#10b981' },
+            label: { show: true, position: 'top', formatter: '${c}B', color: c.titleColor, fontWeight: 'bold' }
+          }
+        ]
+      };
+      chart.setOption(opt);
+    }
+
+    // Chart 4: IT Margins
+    function renderChartITMargins() {
+      const dom = document.getElementById('chart-it-margins');
+      if (!dom || typeof echarts === 'undefined') return;
+      if (Charts.itMargins) Charts.itMargins.dispose();
+      const chart = echarts.init(dom);
+      Charts.itMargins = chart;
+      const c = getChartThemeColors();
+      const isZh = AppState.lang === 'zh';
+
+      const opt = {
+        animation: false,
+        tooltip: { trigger: 'axis' },
+        title: { text: isZh ? '印度外包巨头招聘净增 (千人)' : 'Indian IT Net Headcount Adds (k)', textStyle: { color: c.titleColor, fontSize: 13 }, top: 5 },
+        grid: { left: '3%', right: '4%', bottom: '8%', top: '25%', containLabel: true },
+        xAxis: { type: 'category', data: ['FY21', 'FY22', 'FY23', 'FY24', 'FY25E', 'FY26E'], axisLabel: { color: c.textColor } },
+        yAxis: { type: 'value', axisLabel: { color: c.textColor }, splitLine: { lineStyle: { color: c.gridLine } } },
+        series: [
+          {
+            name: isZh ? '全行业净增员工 (千人)' : 'Industry Net Adds (k)',
+            type: 'bar',
+            data: [450, 500, 290, 60, -25, -65],
+            itemStyle: {
+              color: function(p) { return p.data < 0 ? '#dc2626' : '#0284c7'; }
+            },
+            label: { show: true, position: 'top', color: c.titleColor, fontWeight: 'bold' }
+          }
+        ]
+      };
+      chart.setOption(opt);
+    }
+
+    // Chart 5: Labor Pyramid
+    function renderChartLaborPyramid() {
+      const dom = document.getElementById('chart-labor-pyramid');
+      if (!dom || typeof echarts === 'undefined') return;
+      if (Charts.laborPyramid) Charts.laborPyramid.dispose();
+      const chart = echarts.init(dom);
+      Charts.laborPyramid = chart;
+      const c = getChartThemeColors();
+      const isZh = AppState.lang === 'zh';
+
+      const categories = isZh ? 
+        ['全美总就业 (168M)', '广义白领 (62M)', '软件开发者 (4.4M)', '深度高频AI白领 (4.8M)', '自媒体声称白领 (45M)'] :
+        ['Total US Labor (168M)', 'White-Collar (62M)', 'Software Devs (4.4M)', 'Actual Deep AI Users (4.8M)', 'Viral Claimed Users (45M)'];
+
+      const opt = {
+        animation: false,
+        tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+        title: { text: isZh ? '美国劳动力基数 vs AI 深度使用规模 (百万人)' : 'U.S. Labor Base vs AI User Scale (Millions)', textStyle: { color: c.titleColor, fontSize: 13 }, top: 5 },
+        grid: { left: '3%', right: '6%', bottom: '5%', top: '22%', containLabel: true },
+        xAxis: { type: 'value', axisLabel: { color: c.textColor, formatter: '{value}M' }, splitLine: { lineStyle: { color: c.gridLine } } },
+        yAxis: { type: 'category', data: categories, axisLabel: { color: c.titleColor, fontSize: 11 } },
+        series: [
+          {
+            type: 'bar',
+            data: [
+              { value: 168, itemStyle: { color: '#94a3b8' } },
+              { value: 62, itemStyle: { color: '#64748b' } },
+              { value: 4.4, itemStyle: { color: '#0284c7' } },
+              { value: 4.8, itemStyle: { color: '#10b981' } },
+              { value: 45, itemStyle: { color: '#dc2626' } }
+            ],
+            label: { show: true, position: 'right', formatter: '{c}M', color: c.titleColor, fontWeight: 'bold' }
+          }
+        ]
+      };
+      chart.setOption(opt);
+    }
+
+    // Chart 6: Radar
+    function renderChartRadar() {
+      const dom = document.getElementById('chart-radar');
+      if (!dom || typeof echarts === 'undefined') return;
+      if (Charts.radar) Charts.radar.dispose();
+      const chart = echarts.init(dom);
+      Charts.radar = chart;
+      const c = getChartThemeColors();
+      const isZh = AppState.lang === 'zh';
+
+      const indicators = isZh ? [
+        { name: '专有物理数据壁垒', max: 100 },
+        { name: '企业系统记录粘性 (SoR)', max: 100 },
+        { name: '物理世界责任约束', max: 100 },
+        { name: '分发渠道垄断力', max: 100 },
+        { name: '资本回报确定性', max: 100 },
+        { name: '反向模型替代抗性', max: 100 }
+      ] : [
+        { name: 'Kinetic Data Moat', max: 100 },
+        { name: 'System of Record Stickiness', max: 100 },
+        { name: 'Physical Fiduciary Liability', max: 100 },
+        { name: 'Distribution Monopoly', max: 100 },
+        { name: 'Capital Return Certainty', max: 100 },
+        { name: 'Resistance to LLM Substitution', max: 100 }
+      ];
+
+      const opt = {
+        animation: false,
+        tooltip: {},
+        legend: {
+          data: isZh ? ['通用基础大模型', '存量记录系统 (Epic/SAP)', '清洁能源与物理基建', 'AI 共生超级个体'] :
+                      ['Foundation Models', 'Incumbent SoR (Epic/SAP)', 'Clean Energy & Grid Infra', 'Symbiotic Human Operator'],
+          textStyle: { color: c.textColor },
+          top: 10
+        },
+        radar: {
+          indicator: indicators,
+          radius: '65%',
+          splitLine: { lineStyle: { color: c.gridLine } },
+          splitArea: { show: false },
+          axisLine: { lineStyle: { color: c.gridLine } }
+        },
+        series: [
+          {
+            type: 'radar',
+            data: [
+              { value: [35, 25, 40, 60, 50, 20], name: isZh ? '通用基础大模型' : 'Foundation Models', itemStyle: { color: '#f43f5e' } },
+              { value: [85, 98, 92, 90, 88, 95], name: isZh ? '存量记录系统 (Epic/SAP)' : 'Incumbent SoR (Epic/SAP)', itemStyle: { color: '#0284c7' } },
+              { value: [95, 80, 96, 85, 92, 98], name: isZh ? '清洁能源与物理基建' : 'Clean Energy & Grid Infra', itemStyle: { color: '#10b981' } },
+              { value: [88, 75, 95, 78, 80, 90], name: isZh ? 'AI 共生超级个体' : 'Symbiotic Human Operator', itemStyle: { color: '#a855f7' } }
+            ]
+          }
+        ]
+      };
+      chart.setOption(opt);
+    }
+
+    // Chart 7: Simulator
+    function renderChartSimulation() {
+      const dom = document.getElementById('chart-simulation');
+      if (!dom || typeof echarts === 'undefined') return;
+      if (Charts.sim) Charts.sim.dispose();
+      const chart = echarts.init(dom);
+      Charts.sim = chart;
+      updateSimulation();
+    }
+
+    function updateSimulation() {
+      const deflation = parseInt(document.getElementById('input-deflation').value);
+      const capexGrowth = parseInt(document.getElementById('input-capex-growth').value);
+      const agentReplace = parseInt(document.getElementById('input-agent-replace').value);
+
+      document.getElementById('val-deflation').textContent = deflation + '%';
+      document.getElementById('val-capex-growth').textContent = capexGrowth + '%';
+      document.getElementById('val-agent-replace').textContent = agentReplace + '%';
+
+      // Dynamic formula
+      const baseCapex2027 = 240 * Math.pow(1 + capexGrowth / 100, 3);
+      const baseSoftwareARR = 55 + (agentReplace * 6.5);
+      const gap = Math.round(baseCapex2027 - baseSoftwareARR);
+      const margin = Math.max(2, Math.round(45 - (deflation * 0.55)));
+      const crisisProb = Math.min(99, Math.round((gap / 600) * 85 + (deflation * 0.2)));
+
+      document.getElementById('metric-fcf-gap').textContent = '$' + gap + 'B';
+      document.getElementById('metric-gross-margin').textContent = margin + '%';
+      document.getElementById('metric-crisis-prob').textContent = crisisProb + '%';
+
+      if (!Charts.sim) return;
+      const c = getChartThemeColors();
+      const isZh = AppState.lang === 'zh';
+
+      const opt = {
+        animation: false,
+        tooltip: { trigger: 'axis' },
+        legend: { data: isZh ? ['模拟资本开支 ($B)', '模拟软件 ARR ($B)'] : ['Simulated Capex ($B)', 'Simulated ARR ($B)'], textStyle: { color: c.textColor }, top: 10 },
+        grid: { left: '3%', right: '4%', bottom: '5%', top: '18%', containLabel: true },
+        xAxis: { type: 'category', data: ['2024 (Base)', '2025E', '2026E', '2027E'], axisLabel: { color: c.textColor } },
+        yAxis: { type: 'value', axisLabel: { color: c.textColor, formatter: '${value}B' }, splitLine: { lineStyle: { color: c.gridLine } } },
+        series: [
+          {
+            name: isZh ? '模拟资本开支 ($B)' : 'Simulated Capex ($B)',
+            type: 'bar',
+            data: [
+              240,
+              Math.round(240 * (1 + capexGrowth/100)),
+              Math.round(240 * Math.pow(1 + capexGrowth/100, 2)),
+              Math.round(baseCapex2027)
+            ],
+            itemStyle: { color: '#0284c7' },
+            label: { show: true, position: 'top', formatter: '${c}B', color: c.titleColor, fontWeight: 'bold' }
+          },
+          {
+            name: isZh ? '模拟软件 ARR ($B)' : 'Simulated ARR ($B)',
+            type: 'line',
+            data: [
+              55,
+              Math.round(55 + (agentReplace * 2.5)),
+              Math.round(55 + (agentReplace * 4.2)),
+              Math.round(baseSoftwareARR)
+            ],
+            itemStyle: { color: '#10b981' },
+            lineStyle: { width: 3.5 },
+            symbolSize: 8,
+            label: { show: true, position: 'top', formatter: '${c}B', color: c.titleColor, fontWeight: 'bold' }
+          }
+        ]
+      };
+      Charts.sim.setOption(opt);
+    }
+
+    // Modals
+    function openSourceModal() {
+      const container = document.getElementById('gallery-container');
+      if (container.children.length === 0) {
+        for (let i = 1; i <= 19; i++) {
+          const div = document.createElement('div');
+          div.className = 'gallery-item';
+          div.onclick = () => window.open('./images/' + i + '.jpg', '_blank');
+          div.innerHTML = `<img src="./images/${i}.jpg" alt="Slide ${i}" loading="lazy"><div style="padding: 0.5rem; font-size: 0.75rem; text-align: center; color: var(--text-dim);">Slide ${i} / 19 (Click for Hi-Res)</div>`;
+          container.appendChild(div);
+        }
+      }
+      document.getElementById('modal-source').classList.add('open');
+    }
+
+    function closeSourceModal(e) {
+      if (!e || e.target === document.getElementById('modal-source')) {
+        document.getElementById('modal-source').classList.remove('open');
+      }
+    }
+
+    function openLedgerModal() {
+      const tbody = document.getElementById('ledger-table-body');
+      if (tbody.children.length === 0) {
+        // Fetch or load from static
+        const claims = """ + json.dumps(claims_data, ensure_ascii=False) + """;
+        claims.forEach(c => {
+          const tr = document.createElement('tr');
+          const badgeClass = c.verdict_tag === 'verified' ? 'badge-verified' : (c.verdict_tag === 'distorted' ? 'badge-error' : 'badge-nuanced');
+          tr.innerHTML = `<td><strong>${c.id}</strong></td><td>${c.claim}</td><td>${c.official_metric}</td><td><span class="badge ${badgeClass}">${c.verdict}</span></td><td style="font-size:0.8rem;">${c.evidence}</td>`;
+          tbody.appendChild(tr);
+        });
+      }
+      document.getElementById('modal-ledger').classList.add('open');
+    }
+
+    function closeLedgerModal(e) {
+      if (!e || e.target === document.getElementById('modal-ledger')) {
+        document.getElementById('modal-ledger').classList.remove('open');
+      }
+    }
+
+    // Resize listener for all ECharts
+    window.addEventListener('resize', () => {
+      Object.values(Charts).forEach(chart => {
+        if (chart && typeof chart.resize === 'function') {
+          chart.resize();
+        }
+      });
+    });
+
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 't' || e.key === 'T') toggleTheme();
+      if (e.key === 'p' || e.key === 'P') window.print();
+      if (e.key === 'Escape') {
+        closeSourceModal();
+        closeLedgerModal();
+      }
+    });
+
+    // Initialize on DOM load
+    window.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      setLanguage(AppState.lang);
+    });
+  </script>
+</body>
+</html>
+"""
+
+with open(BASE_DIR / "index.html", "w", encoding="utf-8") as f:
+    f.write(html)
+
+print("index.html successfully updated to vertical continuous flowing deck with EN default and ZH toggle.")

@@ -54,15 +54,26 @@ def test_docs():
         assert dp.stat().st_size > 200, f"Document {rd} is too short"
     print("✓ All 5 analytical monographs in docs/ validated.")
 
+def test_i18n():
+    i18n_p = BASE_DIR / "i18n.js"
+    assert i18n_p.exists(), "i18n.js missing"
+    content = i18n_p.read_text(encoding="utf-8")
+    assert "en:" in content, "English translations missing in i18n.js"
+    assert "zh:" in content, "Chinese translations missing in i18n.js"
+    assert "普通人与普通上班族的生存启示" in content, "Chinese Slide 12 missing in i18n.js"
+    print("✓ i18n.js bilingual dictionary validated.")
+
 def test_html():
     idx_p = BASE_DIR / "index.html"
     assert idx_p.exists(), "index.html missing"
     content = idx_p.read_text(encoding="utf-8")
-    assert "theme-light" in content, "Light mode not default in index.html"
+    assert 'data-theme="light"' in content or 'theme-light' in content, "Light mode not default in index.html"
+    assert 'lang="en"' in content, "Default language not English in index.html"
     assert "echarts.min.js" in content, "ECharts missing in index.html"
-    assert "普通人与普通上班族的生存启示" in content, "Slide 12 missing in index.html"
-    assert "未来黄金赛道与产业演化全景窥探" in content, "Slide 13 missing in index.html"
-    print("✓ index.html structure and slides validated.")
+    assert "i18n.js" in content, "i18n script missing in index.html"
+    assert 'id="slide-1"' in content and 'id="slide-15"' in content, "All 15 slides not present in continuous layout"
+    assert "btn-lang-en" in content and "btn-lang-zh" in content, "Language switchers missing in navigation"
+    print("✓ index.html continuous flowing structure and English default validated.")
 
 def main():
     print("==================================================")
@@ -72,9 +83,10 @@ def main():
         test_datasets()
         test_images()
         test_docs()
+        test_i18n()
         test_html()
         print("--------------------------------------------------")
-        print("🎉 ALL 18 INTEGRITY AUDITS PASSED (100%)")
+        print("🎉 ALL 19 INTEGRITY AUDITS PASSED (100%)")
         print("==================================================")
     except AssertionError as e:
         print(f"❌ AUDIT FAILED: {str(e)}")
