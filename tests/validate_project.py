@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Project CI/CD Integrity Audit & Validation Suite
+Static Project Contract Audit
 Validates JSON datasets, HTML references, image assets, and documentation symmetry.
+It does not render a browser or establish factual truth.
 """
 
 import sys
@@ -77,7 +78,7 @@ def test_html():
 
 def main():
     print("==================================================")
-    print(" AI Commanding Heights Project Integrity Audit")
+    print(" AI Commanding Heights Static Project Contract Audit")
     print("==================================================")
     try:
         test_datasets()
@@ -86,7 +87,7 @@ def main():
         test_i18n()
         test_html()
         print("--------------------------------------------------")
-        print("🎉 ALL 19 INTEGRITY AUDITS PASSED (100%)")
+        print("✓ ALL STATIC PROJECT CONTRACT CHECKS PASSED")
         print("==================================================")
     except AssertionError as e:
         print(f"❌ AUDIT FAILED: {str(e)}")
