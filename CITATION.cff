@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this intelligence research deck, data synthesis, or empirical models, please cite it as below."
+message: "If you use this research deck, cite the project and the primary source for each factual claim."
 title: "The Commanding Heights of AI: Foundation Model Commoditization, Empirical Fact-Check, and Strategic Reallocation of Economic Rent"
 version: 2.6.0
 date-released: 2026-11-02
@@ -11,7 +11,6 @@ authors:
     given-names: "Zubin"
     website: "https://github.com/zubin-li"
   - name: "Antigravity"
-    website: "https://github.com/antigravity"
 keywords:
   - "Artificial Intelligence"
   - "Foundation Models"
